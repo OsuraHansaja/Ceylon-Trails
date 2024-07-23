@@ -1,0 +1,123 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 60px;
+}
+
+.logo img {
+    max-width: 60px;
+    height: auto;
+    margin-left: 300px;
+}
+
+.top-bar .menu {
+    display: flex;
+    gap: 30px;
+}
+
+.top-bar .menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.top-bar .actions {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+.top-bar .actions a {
+    text-decoration: none;
+    color: #333;
+}
+
+.banner {
+    background: url('/images/homepagehero.png') no-repeat center center;
+    background-size: cover;
+    height: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+.banner h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 150px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.bottom-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: #f8f8f8;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.bottom-links div {
+    flex: 1;
+    text-align: center;
+}
+
+.bottom-links .related-sites p,
+.bottom-links .connect p,
+.bottom-links .legal p {
+    font-weight: 700; /* Bold headings */
+}
+
+.bottom-links .related-sites ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Center-align the list */
+    display: inline-block; /* Center-align the list */
+    text-align: left; /* Align text to the left */
+}
+
+.bottom-links .related-sites ul li {
+    margin-bottom: 5px;
+}
+
+.bottom-links .related-sites ul li a {
+    text-decoration: none;
+    color: #9A9A9A;
+}
+
+.bottom-links .connect ul {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bottom-links .connect ul li a img {
+    width: 30px;
+    height: 30px;
+}
+
+.bottom-links .legal p {
+    margin-bottom: 5px;
+}
+
+.bottom-links .legal p a {
+    text-decoration: none;
+    color: #333;
+}
