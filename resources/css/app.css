@@ -5,3 +5,23 @@
 [x-cloak] {
     display: none;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+input, select {
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+}
+
+button {
+    border-radius: 32px;
+    padding: 0.5rem 1rem;
+}
+
+form {
+    border-radius: 32px;
+}
