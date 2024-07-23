@@ -30,6 +30,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return User::create([
+            'name' => $input['first_name'] . ' ' . $input['last_name'],
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'username' => $input['username'],
@@ -39,5 +40,6 @@ class CreateNewUser implements CreatesNewUsers
             'gender' => $input['gender'],
         ]);
     }
+
 
 }
