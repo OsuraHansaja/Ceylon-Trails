@@ -80,7 +80,7 @@ Route::put('/host/profile/update-password', function (Request $request) {
 })->name('host.profile.update-password')->middleware('auth:host');
 
 
-
+//middleware
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
