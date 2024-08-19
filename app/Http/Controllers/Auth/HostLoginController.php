@@ -41,6 +41,6 @@ class HostLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');  // Redirect to home or login page
+        return redirect()->route('host.login');  // Redirect to the host login page
     }
 }
