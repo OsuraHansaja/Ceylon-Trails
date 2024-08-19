@@ -59,6 +59,7 @@ return [
     |
     */
 
+    // adding new auth providers
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
