@@ -22,6 +22,10 @@ Route::post('host/register', [App\Http\Controllers\Auth\HostRegisterController::
 // Host Dashboard (to be created later)
 Route::get('host/dashboard', [App\Http\Controllers\Host\DashboardController::class, 'index'])->name('host.dashboard')->middleware('auth:host');
 
+// Host Login
+Route::get('host/login', [App\Http\Controllers\Auth\HostLoginController::class, 'showLoginForm'])->name('host.login');
+Route::post('host/login', [App\Http\Controllers\Auth\HostLoginController::class, 'login']);
+Route::post('host/logout', [App\Http\Controllers\Auth\HostLoginController::class, 'logout'])->name('host.logout');
 
 
 Route::middleware([

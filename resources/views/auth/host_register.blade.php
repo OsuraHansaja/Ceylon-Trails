@@ -40,7 +40,7 @@
         </div>
 
         <div class="absolute top-0 right-0 mt-4 mr-4">
-            <a href="" class="text-sm text-gray-600 hover:text-gray-900">Sign In</a>
+            <a href="{{ route('host.login') }}" class="text-sm text-gray-600 hover:text-gray-900">Sign In</a>
         </div>
     </div>
 </x-guest-layout>
