@@ -58,7 +58,6 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-    //auth change will be added here
 
     'providers' => [
         'users' => [
