@@ -27,6 +27,18 @@ Route::get('host/login', [App\Http\Controllers\Auth\HostLoginController::class, 
 Route::post('host/login', [App\Http\Controllers\Auth\HostLoginController::class, 'login']);
 Route::post('host/logout', [App\Http\Controllers\Auth\HostLoginController::class, 'logout'])->name('host.logout');
 
+/*Route::group(['middleware' => ['auth:host']], function () {
+    Route::get('/host/profile', function () {
+        return view('profile.show');
+    })->name('host.profile.show');
+
+    Route::put('/host/profile-information', [\Laravel\Jetstream\Http\Controllers\Livewire\UpdateProfileInformationController::class, 'update'])
+        ->name('host.user-profile-information.update');
+
+    Route::put('/host/password', [\Laravel\Jetstream\Http\Controllers\Livewire\UpdatePasswordController::class, 'update'])
+        ->name('host.user-password.update');
+});*/
+
 
 Route::middleware([
     'auth:sanctum',
