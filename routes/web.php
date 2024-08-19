@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('home');
@@ -38,6 +41,44 @@ Route::post('host/logout', [App\Http\Controllers\Auth\HostLoginController::class
     Route::put('/host/password', [\Laravel\Jetstream\Http\Controllers\Livewire\UpdatePasswordController::class, 'update'])
         ->name('host.user-password.update');
 });*/
+
+//Host profile
+Route::get('/host/profile', function () {
+    return view('host.profile');
+})->name('host.profile')->middleware('auth:host');
+
+Route::put('/host/profile/update-username', function (Request $request) {
+    $request->validate([
+        'username' => ['required', 'string', 'max:255'],
+    ]);
+
+    $user = Auth::guard('host')->user();
+    $user->username = $request->username;
+    $user->save();
+
+    return redirect()->route('host.profile')->with('status', 'Username updated successfully!');
+})->name('host.profile.update-username')->middleware('auth:host');
+
+Route::put('/host/profile/update-password', function (Request $request) {
+    $request->validate([
+        'current_password' => ['required'],
+        'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+
+    $user = Auth::guard('host')->user();
+
+    // Check if the current password matches
+    if (!Hash::check($request->current_password, $user->password)) {
+        return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+    }
+
+    // Update the password
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return redirect()->route('host.profile')->with('status', 'Password updated successfully!');
+})->name('host.profile.update-password')->middleware('auth:host');
+
 
 
 Route::middleware([
