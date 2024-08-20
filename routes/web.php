@@ -79,6 +79,20 @@ Route::put('/host/profile/update-password', function (Request $request) {
     return redirect()->route('host.profile')->with('status', 'Password updated successfully!');
 })->name('host.profile.update-password')->middleware('auth:host');
 
+//Routes for Creating and Managing Attractions
+use App\Http\Controllers\Host\ItemController;
+
+Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function () {
+    Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
+    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+});
+
+
+
+
+
 
 //middleware
 Route::middleware([
