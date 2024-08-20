@@ -73,8 +73,26 @@
             <div class="container mx-auto">
                 <!-- Dynamic Content Area -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold text-gray-900">Welcome to Your Dashboard</h2>
-                    <p class="mt-4 text-gray-700">This is where you can manage your pages, events, and more.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Your Attractions</h2>
+
+                    @if ($items->isEmpty())
+                        <p class="text-gray-600">You haven't created any attractions yet.</p>
+                    @else
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            @foreach ($items as $item)
+                                <div class="bg-white p-4 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-bold mb-2">{{ $item->title }}</h3>
+                                    <p class="text-gray-700 mb-2">{{ $item->small_description }}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Location: {{ $item->location }}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Link: <a href="{{ $item->link }}" class="text-blue-500" target="_blank">{{ $item->link }}</a></p>
+                                    <p class="text-sm text-gray-500 mb-2">Category: {{ $item->categories->pluck('name')->join(', ') }}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Created: {{ $item->created_at->format('d M Y') }}</p>
+                                    <a href="#" class="text-blue-500 hover:underline">Edit</a> |
+                                    <a href="#" class="text-red-500 hover:underline">Delete</a>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </main>

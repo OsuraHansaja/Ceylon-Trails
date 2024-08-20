@@ -16,6 +16,7 @@ class ItemController extends Controller
         return view('host.dashboard', compact('items'));
     }
 
+
     public function create($type)
     {
         $categories = Category::all();
