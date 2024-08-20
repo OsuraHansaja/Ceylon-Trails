@@ -23,7 +23,7 @@
     <!-- Navigation Bar -->
     <header class="bg-white shadow flex items-center justify-between px-6 py-4">
         <div class="flex items-center">
-            <a href="">
+            <a href="{{ route('home') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
             </a>
             <h1 class="ml-4 text-xl font-semibold text-gray-900">Dashboard</h1>
@@ -33,9 +33,7 @@
                 <span class="text-gray-600 mr-4">{{ Auth::guard('host')->user()->username }}</span>
                 <img src="{{ asset('images/profile-placeholder.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
             </a>
-
         </div>
-
     </header>
 
     <!-- Main Content -->
@@ -47,8 +45,15 @@
                     <li class="mb-2">
                         <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Dashboard</a>
                     </li>
-                    <li class="mb-2">
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Create Item</a>
+                    <li class="relative mb-2 group">
+                        <button class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md relative">
+                            Create Item
+                        </button>
+                        <ul class="absolute left-0 w-full bg-white shadow-lg rounded-md hidden group-hover:block z-10">
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Attraction</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Event</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Guide</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{ route('host.logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
