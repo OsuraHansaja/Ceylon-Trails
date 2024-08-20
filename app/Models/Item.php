@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $fillable = [
-        'title', 'small_description', 'location', 'link', 'thumbnail_image', 'cover_photo', 'large_description', 'host_id',
+        'title', 'small_description', 'location', 'link', 'large_description', 'host_id',
     ];
 
     public function categories()
@@ -15,9 +15,9 @@ class Item extends Model
         return $this->belongsToMany(Category::class, 'category_item');
     }
 
-    public function gallery()
+    /*public function gallery()
     {
         return $this->hasMany(Gallery::class);
-    }
+    }*/
 }
 

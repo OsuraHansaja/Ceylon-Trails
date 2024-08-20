@@ -16,25 +16,28 @@ class ItemController extends Controller
         return view('host.dashboard', compact('items'));
     }
 
-    public function create()
+    public function create($type)
     {
         $categories = Category::all();
-        return view('host.items.create', compact('categories'));
+        return view('host.items.create', compact('categories', 'type'));
     }
+
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'small_description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'link' => 'nullable|url',
-            'thumbnail_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'cover_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'categories' => 'required|array',
-            'large_description' => 'required|string',
-            'gallery.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        /*dd($request->all()); // This will dump all the form data and stop the execution, for debugging */
+
+        /*$request->validate([
+            //'title' => 'required|string|max:255',
+            //'small_description' => 'required|string',
+            //'location' => 'required|string|max:255',
+            //'link' => 'nullable|url',
+            //'categories' => 'required|array',
+            //'categories.*' => 'exists:categories,id',
+            //'large_description' => 'required|string',
+        ]); */
+
+
 
         $item = new Item();
         $item->title = $request->title;
@@ -45,44 +48,21 @@ class ItemController extends Controller
         $item->host_id = auth()->id();
         $item->save();
 
+        /*// Debug the categories before attaching
+        dd($request->category_ids);*/
+
+        // Convert the comma-separated string to an array
+        $categoryIdsArray = explode(',', $request->category_ids);
+
+        //dd($categoryIdsArray); This will dump all the form data and stop the execution, for debugging
+
         // Attach categories
-        $item->categories()->attach($request->categories);
+        $item->categories()->attach($request->category_ids);
 
-        // Store the thumbnail image
-        if ($request->hasFile('thumbnail_image')) {
-            $thumbnailPath = $request->file('thumbnail_image')->store('items/thumbnails', 'public');
-            $item->thumbnail_image = $thumbnailPath;
-            $item->save();
-
-            // Save the thumbnail as part of the gallery
-            $gallery = new Gallery();
-            $gallery->item_id = $item->id;
-            $gallery->image_path = $thumbnailPath;
-            $gallery->is_thumbnail = true;
-            $gallery->save();
-        }
-
-        // Store the cover photo
-        if ($request->hasFile('cover_photo')) {
-            $coverPhotoPath = $request->file('cover_photo')->store('items/covers', 'public');
-            $item->cover_photo = $coverPhotoPath;
-            $item->save();
-        }
-
-        // Store additional gallery images
-        if ($request->hasFile('gallery')) {
-            foreach ($request->file('gallery') as $image) {
-                $imagePath = $image->store('items/gallery', 'public');
-
-                $gallery = new Gallery();
-                $gallery->item_id = $item->id;
-                $gallery->image_path = $imagePath;
-                $gallery->save();
-            }
-        }
-
+        // Redirect to dashboard with success message
         return redirect()->route('host.dashboard')->with('status', 'Attraction created successfully!');
     }
+
 
     public function show(Item $item)
     {
