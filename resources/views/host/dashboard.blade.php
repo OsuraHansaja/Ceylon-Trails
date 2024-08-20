@@ -71,7 +71,7 @@
         <!-- Content Area -->
         <main class="flex-1 p-6 bg-gray-50">
             <div class="container mx-auto">
-                <!-- Dynamic Content will be placed here -->
+                <!-- Dynamic Content Area -->
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-2xl font-bold text-gray-900">Welcome to Your Dashboard</h2>
                     <p class="mt-4 text-gray-700">This is where you can manage your pages, events, and more.</p>
