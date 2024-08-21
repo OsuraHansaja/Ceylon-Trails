@@ -89,6 +89,9 @@ Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function 
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 });
 
+//Routes for editing and updating item
+Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
+Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
 
 
 

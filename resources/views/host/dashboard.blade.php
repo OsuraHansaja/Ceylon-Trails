@@ -87,8 +87,11 @@
                                     <p class="text-sm text-gray-500 mb-2">Link: <a href="{{ $item->link }}" class="text-blue-500" target="_blank">{{ $item->link }}</a></p>
                                     <p class="text-sm text-gray-500 mb-2">Category: {{ $item->categories->pluck('name')->join(', ') }}</p>
                                     <p class="text-sm text-gray-500 mb-2">Created: {{ $item->created_at->format('d M Y') }}</p>
-                                    <a href="#" class="text-blue-500 hover:underline">Edit</a> |
-                                    <a href="#" class="text-red-500 hover:underline">Delete</a>
+                                    <!-- <a href="#" class="text-blue-500 hover:underline">Edit</a> |
+                                    <a href="#" class="text-red-500 hover:underline">Delete</a>-->
+                                    <div class="flex space-x-4 mt-4">
+                                        <a href="{{ route('host.items.edit', $item->id) }}" class="bg-orange-500 text-white px-4 py-2 rounded-md">Edit</a>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

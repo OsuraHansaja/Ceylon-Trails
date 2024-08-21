@@ -67,5 +67,37 @@ class ItemController extends Controller
     {
         return view('host.items.show', compact('item'));
     }
+    public function edit(Item $item)
+    {
+        $categories = Category::all();
+        return view('host.items.edit', compact('item', 'categories'));
+    }
+
+    public function update(Request $request, Item $item)
+    {
+        /*$request->validate([
+            'title' => 'required|string|max:255',
+            'small_description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'link' => 'nullable|url',
+            'category_ids' => 'required|array',
+            'large_description' => 'required|string',
+        ]);*/
+
+        // Update item details
+        $item->title = $request->title;
+        $item->small_description = $request->small_description;
+        $item->location = $request->location;
+        $item->link = $request->link;
+        $item->large_description = $request->large_description;
+        $item->save();
+
+        // Sync categories
+        $item->categories()->sync($request->category_ids);
+
+        return redirect()->route('host.dashboard')->with('status', 'Attraction updated successfully!');
+    }
+
+
 }
 
