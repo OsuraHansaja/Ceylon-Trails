@@ -63,10 +63,10 @@ class ItemController extends Controller
     }
 
 
-    public function show(Item $item)
+    /*public function show(Item $item)
     {
         return view('host.items.show', compact('item'));
-    }
+    }*/
     public function edit(Item $item)
     {
         $categories = Category::all();
