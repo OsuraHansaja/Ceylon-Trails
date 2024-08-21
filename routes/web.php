@@ -87,11 +87,14 @@ Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function 
     Route::get('/items/create/{type}', [ItemController::class, 'create'])->name('items.create');
     Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
 
 //Routes for editing and updating item
 Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
 Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
+
 
 
 

@@ -87,11 +87,20 @@
                                     <p class="text-sm text-gray-500 mb-2">Link: <a href="{{ $item->link }}" class="text-blue-500" target="_blank">{{ $item->link }}</a></p>
                                     <p class="text-sm text-gray-500 mb-2">Category: {{ $item->categories->pluck('name')->join(', ') }}</p>
                                     <p class="text-sm text-gray-500 mb-2">Created: {{ $item->created_at->format('d M Y') }}</p>
-                                    <!-- <a href="#" class="text-blue-500 hover:underline">Edit</a> |
-                                    <a href="#" class="text-red-500 hover:underline">Delete</a>-->
+                                    <!-- Existing code -->
                                     <div class="flex space-x-4 mt-4">
                                         <a href="{{ route('host.items.edit', $item->id) }}" class="bg-orange-500 text-white px-4 py-2 rounded-md">Edit</a>
+
+                                        <!-- Delete Button -->
+                                        <form action="{{ route('host.items.destroy', $item->id) }}" method="POST" onsubmit="return confirmDeletion()">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="border border-gray-400 text-gray-700 px-4 py-2 rounded-md hover:bg-red-500 hover:text-white">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
+
                                 </div>
                             @endforeach
                         </div>
@@ -103,5 +112,11 @@
 </div>
 
 @livewireScripts
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this item?');
+    }
+
+</script>
 </body>
 </html>

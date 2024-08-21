@@ -98,6 +98,20 @@ class ItemController extends Controller
         return redirect()->route('host.dashboard')->with('status', 'Attraction updated successfully!');
     }
 
+    public function destroy(Item $item)
+    {
+        // Ensuring the item belongs to the authenticated host
+        if ($item->host_id !== auth()->id()) {
+            abort(403, 'Forbidden');
+        }
+
+        $item->delete();
+
+        return redirect()->route('host.dashboard')->with('status', 'Item deleted successfully!');
+    }
+
+
+
 
 }
 
