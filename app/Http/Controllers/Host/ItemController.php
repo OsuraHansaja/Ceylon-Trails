@@ -38,8 +38,6 @@ class ItemController extends Controller
             //'large_description' => 'required|string',
         ]); */
 
-
-
         $item = new Item();
         $item->title = $request->title;
         $item->small_description = $request->small_description;
