@@ -58,7 +58,7 @@
         </form>
     </div>
 </x-host-layout>
-
+//script for selecting category
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const selectedCategoriesInput = document.getElementById('selected-categories');
