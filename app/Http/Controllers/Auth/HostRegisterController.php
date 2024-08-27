@@ -34,7 +34,7 @@ class HostRegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
-
+//test comment
     protected function create(array $data)
     {
         return Host::create([
