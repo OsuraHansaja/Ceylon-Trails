@@ -29,11 +29,12 @@
                 <input type="url" id="link" name="link" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
             </div>
 
-            <!-- Thumbnail Image
+            <!-- Thumbnail Image -->
             <div class="mb-4">
                 <label for="thumbnail_image" class="block text-gray-700 font-medium mb-2">Thumbnail Image</label>
-                <input type="file" id="thumbnail_image" name="thumbnail_image" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div> -->
+                <input type="file" id="thumbnail_image" name="thumbnail_image" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
 
             <!-- Cover Photo
             <div class="mb-4">

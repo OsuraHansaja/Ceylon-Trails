@@ -97,7 +97,6 @@ Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.
 
 
 
-
 //middleware
 Route::middleware([
     'auth:sanctum',

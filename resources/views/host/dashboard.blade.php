@@ -81,6 +81,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach ($items as $item)
                                 <div class="bg-white p-4 rounded-lg shadow-md">
+                                    @if ($item->thumbnail_image)
+                                        <img src="{{ asset($item->thumbnail_image) }}" alt="{{ $item->title }}" class="w-full h-48 object-cover mb-4 rounded">
+                                    @endif
                                     <h3 class="text-xl font-bold mb-2">{{ $item->title }}</h3>
                                     <p class="text-gray-700 mb-2">{{ $item->small_description }}</p>
                                     <p class="text-sm text-gray-500 mb-2">Location: {{ $item->location }}</p>
