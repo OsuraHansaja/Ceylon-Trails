@@ -48,6 +48,16 @@
                     <li class="mb-2">
                         <a href="{{ route('host.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Profile</a>
                     </li>
+                    <li class="relative mb-2 group">
+                        <button class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md relative">
+                            Create Item
+                        </button>
+                        <ul class="absolute left-0 w-full bg-white shadow-lg rounded-md hidden group-hover:block z-10">
+                            <li><a href="{{ route('host.items.create', ['type' => 'attraction']) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Attraction</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Event</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Guide</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="{{ route('host.logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -90,7 +100,7 @@
                     </div>
 
 
-                    <!-- JavaScript to Preview Image -->
+                    <!-- Script to Preview Image -->
                     <script>
                         document.getElementById('profile_picture').onchange = function (event) {
                             const [file] = event.target.files;
@@ -99,6 +109,21 @@
                             }
                         };
                     </script>
+
+                    <!-- Update Username -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Change Username</h3>
+                        <form method="POST" action="{{ route('host.profile.update-username') }}">
+                            @csrf
+                            @method('PUT')
+                            <div class="mt-4">
+                                <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Username</button>
+                            </div>
+                        </form>
+                    </div>
 
                     <!-- Update Website URL -->
                     <div class="mt-6">
@@ -143,21 +168,6 @@
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Bio</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Update Username -->
-                    <div class="mt-6">
-                        <h3 class="text-lg font-semibold text-gray-800">Change Username</h3>
-                        <form method="POST" action="{{ route('host.profile.update-username') }}">
-                            @csrf
-                            @method('PUT')
-                            <div class="mt-4">
-                                <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
-                            </div>
-                            <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Username</button>
                             </div>
                         </form>
                     </div>

@@ -26,7 +26,7 @@
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
             </a>
-            <h1 class="ml-4 text-xl font-semibold text-gray-900">Profile</h1>
+            <h1 class="ml-4 text-xl font-semibold text-gray-900">Dashboard</h1>
         </div>
         <div class="flex items-center">
             <a href="{{ route('host.profile') }}" class="flex items-center">
@@ -44,6 +44,9 @@
                 <ul>
                     <li class="mb-2">
                         <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Dashboard</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{ route('host.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Profile</a>
                     </li>
                     <li class="relative mb-2 group">
                         <button class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md relative">
