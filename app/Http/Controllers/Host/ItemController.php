@@ -23,7 +23,7 @@ class ItemController extends Controller
         $categories = Category::all();
         return view('host.items.create', compact('categories', 'type'));
     }
-
+//test
 
     public function store(Request $request)
     {
