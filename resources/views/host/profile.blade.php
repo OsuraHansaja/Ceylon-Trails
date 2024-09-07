@@ -21,45 +21,45 @@
 
 <div class="min-h-screen flex flex-col">
     <!-- Navigation Bar -->
-    <header class="bg-white shadow flex items-center justify-between px-6 py-4">
+    <header class="bg-white shadow flex items-center justify-between px-4 py-4 md:px-6">
         <div class="flex items-center">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 md:h-10">
             </a>
-            <h1 class="ml-4 text-xl font-semibold text-gray-900">Profile</h1>
+            <h1 class="ml-4 text-lg md:text-xl font-semibold text-gray-900">Profile</h1>
         </div>
         <div class="flex items-center">
             <a href="{{ route('host.profile') }}" class="flex items-center">
-                <span class="text-gray-600 mr-4">{{ Auth::guard('host')->user()->username }}</span>
-                <img src="{{ asset('storage/' . Auth::guard('host')->user()->profile_picture) }}" alt="Profile Picture" class="h-10 w-10 rounded-full">
+                <span class="text-gray-600 mr-4 text-sm md:text-base">{{ Auth::guard('host')->user()->username }}</span>
+                <img src="{{ asset('storage/' . Auth::guard('host')->user()->profile_picture) }}" alt="Profile Picture" class="h-8 w-8 md:h-10 md:w-10 rounded-full">
             </a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <div class="flex flex-1">
+    <div class="flex flex-1 flex-col md:flex-row">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-md p-4">
+        <aside class="w-full md:w-64 bg-white shadow-md p-4">
             <nav>
                 <ul>
                     <li class="mb-2">
-                        <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Dashboard</a>
+                        <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base">Dashboard</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('host.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Profile</a>
+                        <a href="{{ route('host.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base">Profile</a>
                     </li>
                     <li class="relative mb-2 group">
-                        <button class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md relative">
+                        <button class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md relative text-sm md:text-base">
                             Create Item
                         </button>
                         <ul class="absolute left-0 w-full bg-white shadow-lg rounded-md hidden group-hover:block z-10">
-                            <li><a href="{{ route('host.items.create', ['type' => 'attraction']) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Attraction</a></li>
-                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Event</a></li>
-                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Guide</a></li>
+                            <li><a href="{{ route('host.items.create', ['type' => 'attraction']) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base">Attraction</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base">Event</a></li>
+                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base">Guide</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('host.logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
+                        <a href="{{ route('host.logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md text-sm md:text-base"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
@@ -72,43 +72,32 @@
         </aside>
 
         <!-- Content Area -->
-        <main class="flex-1 p-6 bg-gray-50">
+        <main class="flex-1 p-4 md:p-6 bg-gray-50">
             <div class="container mx-auto">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold text-gray-900">Manage Your Profile</h2>
-                    <p class="mt-4 text-gray-700">Update your account settings here.</p>
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900">Manage Your Profile</h2>
+                    <p class="mt-4 text-sm md:text-base text-gray-700">Update your account settings here.</p>
 
                     <!-- Update Profile Picture -->
                     <div class="mt-6">
                         <h3 class="text-lg font-semibold text-gray-800">Profile Picture</h3>
                         <form method="POST" action="{{ route('host.profile.update') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="flex flex-col items-start"> <!-- Aligned items to the left -->
+                            <div class="flex flex-col items-start">
                                 <!-- Profile Picture Display and Upload -->
                                 <label for="profile_picture" class="relative cursor-pointer">
                                     <img id="profileImage"
                                          src="{{ asset('storage/' . Auth::guard('host')->user()->profile_picture) }}"
                                          alt="Profile Picture"
-                                         class="rounded-full w-40 h-40 object-cover border-4 border-gray-300 hover:grayscale transition duration-300 ease-in-out">
+                                         class="rounded-full w-32 h-32 md:w-40 md:h-40 object-cover border-4 border-gray-300 hover:grayscale transition duration-300 ease-in-out">
                                     <input type="file" name="profile_picture" id="profile_picture" class="hidden" accept="image/*">
                                 </label>
-                                <button type="submit" class="mt-4 px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">
+                                <button type="submit" class="mt-4 px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">
                                     Update Profile Picture
                                 </button>
                             </div>
                         </form>
                     </div>
-
-
-                    <!-- Script to Preview Image -->
-                    <script>
-                        document.getElementById('profile_picture').onchange = function (event) {
-                            const [file] = event.target.files;
-                            if (file) {
-                                document.getElementById('profileImage').src = URL.createObjectURL(file);
-                            }
-                        };
-                    </script>
 
                     <!-- Update Username -->
                     <div class="mt-6">
@@ -120,7 +109,7 @@
                                 <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Username</button>
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">Update Username</button>
                             </div>
                         </form>
                     </div>
@@ -134,7 +123,7 @@
                                 <input type="url" name="website_url" id="website_url" value="{{ old('website_url', auth()->user()->website_url) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Website</button>
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">Update Website</button>
                             </div>
                         </form>
                     </div>
@@ -153,7 +142,7 @@
                                 <input type="url" name="facebook_url" id="facebook_url" value="{{ old('facebook_url', auth()->user()->facebook_url) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Social Media Links</button>
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">Update Social Media Links</button>
                             </div>
                         </form>
                     </div>
@@ -167,7 +156,7 @@
                                 <textarea name="bio" id="bio" maxlength="250" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">{{ old('bio', auth()->user()->bio) }}</textarea>
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Bio</button>
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">Update Bio</button>
                             </div>
                         </form>
                     </div>
@@ -191,7 +180,7 @@
                                 <input id="password_confirmation" name="password_confirmation" type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400">
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md" style="background-color: #FE793D;">Update Password</button>
+                                <button type="submit" class="px-4 py-2 font-semibold text-white rounded-md text-sm md:text-base" style="background-color: #FE793D;">Update Password</button>
                             </div>
                         </form>
                     </div>
