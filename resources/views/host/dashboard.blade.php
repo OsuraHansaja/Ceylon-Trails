@@ -26,12 +26,12 @@
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
             </a>
-            <h1 class="ml-4 text-xl font-semibold text-gray-900">Dashboard</h1>
+            <h1 class="ml-4 text-xl font-semibold text-gray-900">Profile</h1>
         </div>
         <div class="flex items-center">
             <a href="{{ route('host.profile') }}" class="flex items-center">
                 <span class="text-gray-600 mr-4">{{ Auth::guard('host')->user()->username }}</span>
-                <img src="{{ asset('images/profile-placeholder.png') }}" alt="Profile" class="h-10 w-10 rounded-full">
+                <img src="{{ asset('storage/' . Auth::guard('host')->user()->profile_picture) }}" alt="Profile Picture" class="h-10 w-10 rounded-full">
             </a>
         </div>
     </header>
