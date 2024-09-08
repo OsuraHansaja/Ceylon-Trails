@@ -1,4 +1,6 @@
-<x-host-layout>
+@extends('layouts.host')
+
+@section('content')
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-4">Create Attraction</h1>
 
@@ -77,7 +79,7 @@
 
         </form>
     </div>
-</x-host-layout>
+@endsection
 
 
 <script>

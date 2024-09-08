@@ -1,4 +1,6 @@
-<x-host-layout>
+@extends('layouts.host')
+
+@section('content')
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-4">Edit Attraction</h1>
 
@@ -57,8 +59,9 @@
             <button type="submit" class="mt-4 text-white font-bold p-3 rounded-md" style="background-color: #EA7529; opacity: 1;" onmouseover="this.style.backgroundColor='#ff8000'" onmouseout="this.style.backgroundColor='#EA7529'">Save Changes</button>
         </form>
     </div>
-</x-host-layout>
-//script for selecting category test
+@endsection
+
+<!-- script for selecting category test -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const selectedCategoriesInput = document.getElementById('selected-categories');
