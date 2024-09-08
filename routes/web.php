@@ -118,6 +118,9 @@ Route::middleware(['auth:host'])->group(function () {
     Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
     Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
     Route::delete('/host/items/{item}', [ItemController::class, 'destroy'])->name('host.items.destroy');
+
+    //Routes for Statboard
+    Route::get('/host/statboard', [DashboardController::class, 'statboard'])->name('host.statboard');
 });
 
 
