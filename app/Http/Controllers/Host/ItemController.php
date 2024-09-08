@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ItemController extends Controller
@@ -75,13 +77,20 @@ class ItemController extends Controller
         /*// Debug the categories before attaching
         dd($request->category_ids);*/
 
-        // Convert the comma-separated string to an array
-        $categoryIdsArray = explode(',', $request->category_ids);
 
         //dd($categoryIdsArray); This will dump all the form data and stop the execution, for debugging
 
-        // Attach categories
-        $item->categories()->attach($request->category_ids);
+        // Manually Insert Categories into the category_item pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into the pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_item')->insert([
+                'category_id' => (int) $categoryId,
+                'item_id' => $item->id,
+            ]);
+        }
+
 
         // Redirect to dashboard with success message
         return redirect()->route('host.dashboard')->with('status', 'Attraction created successfully!');
@@ -118,8 +127,22 @@ class ItemController extends Controller
         $item->large_description = $request->large_description;
         $item->save();
 
-        // Sync categories
-        $item->categories()->sync($request->category_ids);
+        // Get selected categories
+        $categories = $request->input('category_ids');
+
+        // Delete existing categories for the item in the pivot table
+        DB::table('category_item')->where('item_id', $item->id)->delete();
+
+        // Manually Insert Categories into the category_item pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into the pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_item')->insert([
+                'category_id' => (int) $categoryId,
+                'item_id' => $item->id,
+            ]);
+        }
 
         return redirect()->route('host.dashboard')->with('status', 'Attraction updated successfully!');
     }

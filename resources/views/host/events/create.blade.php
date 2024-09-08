@@ -63,9 +63,11 @@
                             </button>
                         @endforeach
                     </div>
-                    <input type="hidden" name="category_ids" id="selected-categories">
                 </div>
             </div>
+
+            <!-- Hidden inputs for selected categories will be appended here -->
+            <div id="category-inputs"></div>
 
             <!-- Large Description -->
             <div class="mb-4">
@@ -81,8 +83,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedCategoriesInput = document.getElementById('selected-categories');
+        const categoryInputsDiv = document.getElementById('category-inputs');
         const categoryButtons = document.querySelectorAll('.category-button');
+        let selectedCategories = [];
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -103,15 +106,24 @@
         });
 
         function addCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
-            selectedCategories.push(id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            if (!selectedCategories.includes(id)) {
+                selectedCategories.push(id);
+                // Create a new hidden input for each selected category
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category_ids[]';
+                input.value = id;
+                input.id = `category-input-${id}`;
+                categoryInputsDiv.appendChild(input);
+            }
         }
 
         function removeCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
             selectedCategories = selectedCategories.filter(c => c !== id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            const inputToRemove = document.getElementById(`category-input-${id}`);
+            if (inputToRemove) {
+                inputToRemove.remove();
+            }
         }
     });
 </script>
