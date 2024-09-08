@@ -76,7 +76,9 @@ Route::put('/host/profile/update-password', function (Request $request) {
 
 // Routes for Creating and Managing Attractions
 use App\Http\Controllers\Host\ItemController;
-
+use App\Http\Controllers\Host\EventController;
+use App\Http\Controllers\Host\DashboardController;
+/*
 Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function () {
     Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
     Route::get('/items/create/{type}', [ItemController::class, 'create'])->name('items.create');
@@ -85,9 +87,41 @@ Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function 
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
 
-// Routes for editing and updating item
+// Routes for editing and updating item (Attractions)
 Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
-Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
+Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');*/
+/*
+// Events Routes
+
+Route::middleware(['auth:host'])->prefix('host')->name('host.')->group(function () {
+    Route::get('/dashboard', [EventController::class, 'index'])->name('dashboard');
+    Route::get('events/create/{type}', [EventController::class, 'create'])->name('events.create');
+    Route::post('events/store', [EventController::class, 'store'])->name('events.store');
+    Route::get('events/{event}/edit', [EventController::class, 'edit'])->name('host.events.edit');
+    Route::put('events/{event}', [EventController::class, 'update'])->name('host.events.update');
+    Route::delete('events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+});*/
+
+Route::middleware(['auth:host'])->group(function () {
+    Route::get('/host/dashboard', [DashboardController::class, 'index'])->name('host.dashboard');
+
+    // Routes for events
+    Route::get('/host/events/create', [EventController::class, 'create'])->name('host.events.create');
+    Route::post('/host/events/store', [EventController::class, 'store'])->name('host.events.store');
+    Route::get('/host/events/{event}/edit', [EventController::class, 'edit'])->name('host.events.edit');
+    Route::put('/host/events/{event}', [EventController::class, 'update'])->name('host.events.update');
+    Route::delete('/host/events/{event}', [EventController::class, 'destroy'])->name('host.events.destroy');
+
+    // Routes for items
+    Route::get('/host/items/create/{type}', [ItemController::class, 'create'])->name('host.items.create');
+    Route::post('/host/items/store', [ItemController::class, 'store'])->name('host.items.store');
+    Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
+    Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
+    Route::delete('/host/items/{item}', [ItemController::class, 'destroy'])->name('host.items.destroy');
+});
+
+
+
 
 // Middleware for user authentication
 Route::middleware([
