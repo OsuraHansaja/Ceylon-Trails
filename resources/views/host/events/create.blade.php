@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Create Attraction</h1>
+        <h1 class="text-2xl font-bold mb-4">Create Event</h1>
 
-        <form action="{{ route('host.items.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('host.events.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Title -->
@@ -37,12 +37,17 @@
                 <input type="file" id="thumbnail_image" name="thumbnail_image" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
             </div>
 
-
-            <!-- Cover Photo
+            <!-- Start Date -->
             <div class="mb-4">
-                <label for="cover_photo" class="block text-gray-700 font-medium mb-2">Cover Photo</label>
-                <input type="file" id="cover_photo" name="cover_photo" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div> -->
+                <label for="start_date" class="block text-gray-700 font-medium mb-2">Start Date</label>
+                <input type="date" id="start_date" name="start_date" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
+            <!-- End Date -->
+            <div class="mb-4">
+                <label for="end_date" class="block text-gray-700 font-medium mb-2">End Date</label>
+                <input type="date" id="end_date" name="end_date" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
 
             <!-- Categories -->
             <div class="mb-4">
@@ -68,19 +73,11 @@
                 <textarea id="large_description" name="large_description" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500"></textarea>
             </div>
 
-            <!-- Gallery
-            <div class="mb-4">
-                <label for="gallery" class="block text-gray-700 font-medium mb-2">Gallery Images (up to 6)</label>
-                <input type="file" id="gallery" name="gallery[]" multiple class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div>  -->
-
-            <button type="submit" class="mt-4 text-white font-bold p-3 rounded-md" style="background-color: #EA7529; opacity: 1;" onmouseover="this.style.backgroundColor='#ff8000'" onmouseout="this.style.backgroundColor='#EA7529'">Create Attraction</button>
-
+            <button type="submit" class="mt-4 text-white font-bold p-3 rounded-md" style="background-color: #EA7529; opacity: 1;" onmouseover="this.style.backgroundColor='#ff8000'" onmouseout="this.style.backgroundColor='#EA7529'">Create Event</button>
 
         </form>
     </div>
 @endsection
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

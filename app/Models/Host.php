@@ -18,7 +18,13 @@ class Host extends Authenticatable
         'username',
         'email',
         'password',
+        'profile_picture',
+        'website_url',
+        'instagram_url',
+        'facebook_url',
+        'bio'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.

@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Gallery;
 
+
 class ItemController extends Controller
 {
     public function index()
@@ -17,12 +18,13 @@ class ItemController extends Controller
     }
 
 
-    public function create($type)
+    public function create(Request $request)
     {
         $categories = Category::all();
-        return view('host.items.create', compact('categories', 'type'));
+        return view('host.items.create', compact('categories'));
     }
 
+//test
 
     public function store(Request $request)
     {
@@ -45,6 +47,29 @@ class ItemController extends Controller
         $item->link = $request->link;
         $item->large_description = $request->large_description;
         $item->host_id = auth()->id();
+
+        /* Handle file upload
+        if ($request->hasFile('thumbnail_image')) {
+            $image = $request->file('thumbnail_image');
+            $filename = $image->hashName();
+
+            // Resize the image
+            $img = Image::make($image->path());
+            $img->resize(800, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save(storage_path('app/public/thumbnails/' . $filename));
+
+            $item->thumbnail_image = 'thumbnails/' . $filename;
+        } */
+
+        // Handle file upload
+        if ($request->hasFile('thumbnail_image')) {
+            $filename = time() . '.' . $request->thumbnail_image->extension();
+            $request->thumbnail_image->move(public_path('thumbnails'), $filename); // Move the uploaded file
+            $item->thumbnail_image = 'thumbnails/' . $filename; // Save the file path in the database
+        }
+
         $item->save();
 
         /*// Debug the categories before attaching
@@ -80,6 +105,7 @@ class ItemController extends Controller
             'small_description' => 'required|string',
             'location' => 'required|string|max:255',
             'link' => 'nullable|url',
+            'thumbnail_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'category_ids' => 'required|array',
             'large_description' => 'required|string',
         ]);*/
