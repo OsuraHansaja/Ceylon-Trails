@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -61,8 +62,17 @@ class EventController extends Controller
         // Save the event
         $event->save();
 
-        // Sync categories
-        $event->categories()->attach($request->category_ids);
+        // Manually Insert Categories into the category_event pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_event')->insert([
+                'category_id' => (int)$categoryId,
+                'event_id' => $event->id,
+            ]);
+        }
+
 
         return redirect()->route('host.dashboard')->with('success', 'Event created successfully.');
     }
@@ -101,8 +111,22 @@ class EventController extends Controller
         $event->end_date = $request->end_date;
         $event->save();
 
-        // Sync categories
-        $event->categories()->sync($request->category_ids);
+        // Get selected categories
+        $categories = $request->input('category_ids');
+
+        // Delete existing categories for the item in the pivot table
+        DB::table('category_event')->where('event_id', $event->id)->delete();
+
+        // Manually Insert Categories into the category_event pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_event')->insert([
+                'category_id' => (int)$categoryId,
+                'event_id' => $event->id,
+            ]);
+        }
 
         return redirect()->route('host.dashboard')->with('success', 'Event updated successfully.');
     }

@@ -37,13 +37,6 @@
                 <input type="file" id="thumbnail_image" name="thumbnail_image" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
             </div>
 
-
-            <!-- Cover Photo
-            <div class="mb-4">
-                <label for="cover_photo" class="block text-gray-700 font-medium mb-2">Cover Photo</label>
-                <input type="file" id="cover_photo" name="cover_photo" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div> -->
-
             <!-- Categories -->
             <div class="mb-4">
                 <label for="categories" class="block text-gray-700 font-medium mb-2">Categories</label>
@@ -58,9 +51,11 @@
                             </button>
                         @endforeach
                     </div>
-                    <input type="hidden" name="category_ids" id="selected-categories">
                 </div>
             </div>
+
+            <!-- Hidden inputs for selected categories will be appended here -->
+            <div id="category-inputs"></div>
 
             <!-- Large Description -->
             <div class="mb-4">
@@ -68,24 +63,16 @@
                 <textarea id="large_description" name="large_description" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500"></textarea>
             </div>
 
-            <!-- Gallery
-            <div class="mb-4">
-                <label for="gallery" class="block text-gray-700 font-medium mb-2">Gallery Images (up to 6)</label>
-                <input type="file" id="gallery" name="gallery[]" multiple class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div>  -->
-
             <button type="submit" class="mt-4 text-white font-bold p-3 rounded-md" style="background-color: #EA7529; opacity: 1;" onmouseover="this.style.backgroundColor='#ff8000'" onmouseout="this.style.backgroundColor='#EA7529'">Create Attraction</button>
-
-
         </form>
     </div>
 @endsection
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedCategoriesInput = document.getElementById('selected-categories');
+        const categoryInputsDiv = document.getElementById('category-inputs');
         const categoryButtons = document.querySelectorAll('.category-button');
+        let selectedCategories = [];
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -106,15 +93,24 @@
         });
 
         function addCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
-            selectedCategories.push(id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            if (!selectedCategories.includes(id)) {
+                selectedCategories.push(id);
+                // Create a new hidden input for each selected category
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category_ids[]';
+                input.value = id;
+                input.id = `category-input-${id}`;
+                categoryInputsDiv.appendChild(input);
+            }
         }
 
         function removeCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
             selectedCategories = selectedCategories.filter(c => c !== id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            const inputToRemove = document.getElementById(`category-input-${id}`);
+            if (inputToRemove) {
+                inputToRemove.remove();
+            }
         }
     });
 </script>

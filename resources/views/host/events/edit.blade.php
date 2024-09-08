@@ -47,20 +47,23 @@
             <!-- Categories -->
             <div class="mb-4">
                 <label for="categories" class="block text-gray-700 font-medium mb-2">Categories</label>
-                <div id="categories" class="flex flex-wrap gap-2">
-                    @foreach ($categories as $category)
-                        <button type="button"
-                                class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
-                                data-category-id="{{ $category->id }}"
-                                style="border-color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#333' : '#ccc' }};
-                                       color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#fff' : '#333' }};
-                                       background-color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#333' : 'transparent' }};">
-                            {{ $category->name }}
-                        </button>
-                    @endforeach
+                <div class="mb-4">
+                    <div id="categories" class="flex flex-wrap gap-2">
+                        @foreach ($categories as $category)
+                            <button type="button"
+                                    class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
+                                    data-category-id="{{ $category->id }}"
+                                    style="border-color: #333; color: #333;">
+                                {{ $category->name }}
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
-                <input type="hidden" name="category_ids" id="selected-categories" value="{{ implode(',', $event->categories->pluck('id')->toArray()) }}">
             </div>
+
+            <!-- Hidden inputs for selected categories will be appended here -->
+            <div id="category-inputs"></div>
+
 
             <!-- Large Description -->
             <div class="mb-4">
@@ -73,11 +76,11 @@
     </div>
 @endsection
 
-<!-- script for selecting category test -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedCategoriesInput = document.getElementById('selected-categories');
+        const categoryInputsDiv = document.getElementById('category-inputs');
         const categoryButtons = document.querySelectorAll('.category-button');
+        let selectedCategories = [];
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -98,15 +101,25 @@
         });
 
         function addCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
-            selectedCategories.push(id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            if (!selectedCategories.includes(id)) {
+                selectedCategories.push(id);
+                // Create a new hidden input for each selected category
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category_ids[]';
+                input.value = id;
+                input.id = `category-input-${id}`;
+                categoryInputsDiv.appendChild(input);
+            }
         }
 
         function removeCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
             selectedCategories = selectedCategories.filter(c => c !== id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            const inputToRemove = document.getElementById(`category-input-${id}`);
+            if (inputToRemove) {
+                inputToRemove.remove();
+            }
         }
     });
 </script>
+
