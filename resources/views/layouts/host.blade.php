@@ -16,6 +16,56 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <!-- Custom CSS -->
+    <style>
+        /* Fix the sidebar */
+        #sidebar {
+            position: fixed;
+            top: 64px; /* Adjust based on the header height */
+            left: 0;
+            height: calc(100% - 64px); /* Adjust based on the header height */
+            width: 240px; /* Adjust based on the sidebar width */
+            background-color: #ffffff;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        /* Fix the top navigation bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+        }
+
+        /* Main content to account for fixed elements */
+        .main-content {
+            margin-left: 240px; /* Adjust based on sidebar width */
+            padding: 20px;
+            margin-top: 64px; /* Adjust based on the height of the navbar */
+        }
+
+        /* Adjust content when sidebar is hidden on mobile */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            #sidebar {
+                position: absolute;
+                z-index: 999;
+                top: 64px;
+                left: -240px;
+                transition: left 0.3s;
+            }
+            #sidebar.block {
+                left: 0;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-100" style="font-family: 'Poppins', sans-serif;">
 <div class="min-h-screen flex flex-col">
@@ -39,7 +89,7 @@
     </header>
 
     <!-- Main Layout Wrapper -->
-    <div class="flex min-h-screen">
+    <div class="flex">
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-white shadow-md p-4 w-full md:w-64 flex-shrink-0 hidden md:block">
             <nav>
@@ -74,7 +124,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6 bg-gray-50">
+        <main class="main-content flex-1 p-6 bg-gray-50">
             @yield('content')
         </main>
     </div>
@@ -85,7 +135,7 @@
 <!-- Script for toggling the sidebar on mobile -->
 <script>
     document.getElementById('sidebar-toggle').addEventListener('click', function () {
-        var sidebar = document.getElementById('sidebar');
+        let sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hidden');
         sidebar.classList.toggle('block');  // Sidebar appears as a block element
     });
