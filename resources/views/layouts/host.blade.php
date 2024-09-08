@@ -72,10 +72,10 @@
     <!-- Top Navigation Bar -->
     <header class="bg-white shadow flex items-center justify-between px-6 py-4">
         <div class="flex items-center">
-            <a href="{{ route('home') }}">
+            <a href="">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
             </a>
-            <h1 class="ml-4 text-xl font-semibold text-gray-900">Dashboard</h1>
+            <h1 class="ml-4 text-xl font-semibold text-gray-900">Host Portal</h1>
         </div>
         <div class="flex items-center">
             <button id="sidebar-toggle" class="md:hidden text-gray-500 focus:outline-none mr-4">
