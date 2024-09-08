@@ -20,4 +20,4 @@ class Item extends Model
         return $this->hasMany(Gallery::class);
     }*/
 }
-
+//This is the model for the Attractions, it was incorrectly named Item and has remained so due to inability to adjust this late.
