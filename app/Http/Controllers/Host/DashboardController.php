@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;    // Import the Item model (Attractions)
+use App\Models\Event;   // Import the Event model
 use Illuminate\Http\Request;
 
 
@@ -10,7 +12,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('host.dashboard');  // This will reference the Blade view for the host dashboard
+        // Fetch the items (attractions) and events for the logged-in host
+        $items = Item::where('host_id', auth()->id())->get();
+        $events = Event::where('host_id', auth()->id())->get();
+
+        // Pass both items and events to the dashboard view
+        return view('host.dashboard', compact('items', 'events'));  // This will reference the Blade view for the host dashboard
     }
 
     public function updateProfile(Request $request)

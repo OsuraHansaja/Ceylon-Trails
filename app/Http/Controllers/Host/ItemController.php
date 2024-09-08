@@ -18,11 +18,12 @@ class ItemController extends Controller
     }
 
 
-    public function create($type)
+    public function create(Request $request)
     {
         $categories = Category::all();
-        return view('host.items.create', compact('categories', 'type'));
+        return view('host.items.create', compact('categories'));
     }
+
 //test
 
     public function store(Request $request)

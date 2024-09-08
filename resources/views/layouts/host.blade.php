@@ -16,16 +16,66 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <!-- Custom CSS -->
+    <style>
+        /* Fix the sidebar */
+        #sidebar {
+            position: fixed;
+            top: 64px; /* Adjust based on the header height */
+            left: 0;
+            height: calc(100% - 64px); /* Adjust based on the header height */
+            width: 240px; /* Adjust based on the sidebar width */
+            background-color: #ffffff;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        /* Fix the top navigation bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+        }
+
+        /* Main content to account for fixed elements */
+        .main-content {
+            margin-left: 240px; /* Adjust based on sidebar width */
+            padding: 20px;
+            margin-top: 64px; /* Adjust based on the height of the navbar */
+        }
+
+        /* Adjust content when sidebar is hidden on mobile */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            #sidebar {
+                position: absolute;
+                z-index: 999;
+                top: 64px;
+                left: -240px;
+                transition: left 0.3s;
+            }
+            #sidebar.block {
+                left: 0;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-100" style="font-family: 'Poppins', sans-serif;">
 <div class="min-h-screen flex flex-col">
     <!-- Top Navigation Bar -->
     <header class="bg-white shadow flex items-center justify-between px-6 py-4">
         <div class="flex items-center">
-            <a href="{{ route('home') }}">
+            <a href="">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
             </a>
-            <h1 class="ml-4 text-xl font-semibold text-gray-900">Dashboard</h1>
+            <h1 class="ml-4 text-xl font-semibold text-gray-900">Host Portal</h1>
         </div>
         <div class="flex items-center">
             <button id="sidebar-toggle" class="md:hidden text-gray-500 focus:outline-none mr-4">
@@ -39,7 +89,7 @@
     </header>
 
     <!-- Main Layout Wrapper -->
-    <div class="flex min-h-screen">
+    <div class="flex">
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-white shadow-md p-4 w-full md:w-64 flex-shrink-0 hidden md:block">
             <nav>
@@ -56,7 +106,7 @@
                         </button>
                         <ul class="absolute left-0 w-full bg-white shadow-lg rounded-md hidden group-hover:block z-10">
                             <li><a href="{{ route('host.items.create', ['type' => 'attraction']) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Attraction</a></li>
-                            <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Event</a></li>
+                            <li><a href="{{ route('host.events.create', ['type' => 'attraction']) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Event</a></li>
                             <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Guide</a></li>
                         </ul>
                     </li>
@@ -74,7 +124,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6 bg-gray-50">
+        <main class="main-content flex-1 p-6 bg-gray-50">
             @yield('content')
         </main>
     </div>
@@ -85,7 +135,7 @@
 <!-- Script for toggling the sidebar on mobile -->
 <script>
     document.getElementById('sidebar-toggle').addEventListener('click', function () {
-        var sidebar = document.getElementById('sidebar');
+        let sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hidden');
         sidebar.classList.toggle('block');  // Sidebar appears as a block element
     });
