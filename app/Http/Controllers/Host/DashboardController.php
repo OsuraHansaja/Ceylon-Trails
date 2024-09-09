@@ -70,6 +70,49 @@ class DashboardController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
+    public function statboard()
+    {
+        // Fetch total counts
+        $totalAttractions = Item::where('host_id', auth()->id())->count();
+        $totalEvents = Event::where('host_id', auth()->id())->count();
+        $totalGuides = 0; // Placeholder since guides aren't implemented yet
+        $totalReviews = 0; // Placeholder until reviews are implemented
+
+
+        /*
+        // Fetch ratings and calculate average
+        $averageRating = Rating::whereIn('item_type', ['attraction', 'event', 'guide'])
+            ->where('host_id', auth()->id())
+            ->avg('rating') ?? 0;
+
+        // Rating breakdown: How many 1-star, 2-star, etc.
+        $ratingsBreakdown = Rating::select(DB::raw('rating, count(*) as count'))
+            ->whereIn('item_type', ['attraction', 'event', 'guide'])
+            ->where('host_id', auth()->id())
+            ->groupBy('rating')
+            ->pluck('count', 'rating')
+            ->toArray();
+
+        // Default values for any missing rating categories
+        $ratingsBreakdown = array_replace([1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0], $ratingsBreakdown);*/
+
+        // Fetch upcoming events for the calendar
+        $upcomingEvents = Event::where('host_id', auth()->id())
+            ->where('start_date', '>=', now())
+            ->get(['title', 'start_date as start'])
+            ->toArray();
+
+        /*Uncomment this once the rating stuff is ready
+        return view('host.statboard', compact(
+            'totalAttractions', 'totalEvents', 'totalGuides', 'totalReviews',
+            'averageRating', 'ratingsBreakdown', 'upcomingEvents'
+        ));*/
+
+        return view('host.statboard', compact(
+            'totalAttractions', 'totalEvents', 'totalGuides', 'totalReviews', 'upcomingEvents'
+        ));
+
+    }
 
 }
 

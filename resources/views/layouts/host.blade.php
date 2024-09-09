@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 
+    <!-- Charting and Calendar scripts -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -66,6 +70,7 @@
             }
         }
     </style>
+    @stack('styles')
 </head>
 <body class="font-sans antialiased bg-gray-100" style="font-family: 'Poppins', sans-serif;">
 <div class="min-h-screen flex flex-col">
@@ -95,7 +100,10 @@
             <nav>
                 <ul>
                     <li class="mb-2">
-                        <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Dashboard</a>
+                        <a href="{{ route('host.statboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Dashboard</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{ route('host.dashboard') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">My Items</a>
                     </li>
                     <li class="mb-2">
                         <a href="{{ route('host.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Profile</a>
@@ -131,6 +139,7 @@
 </div>
 
 @livewireScripts
+@stack('scripts')
 
 <!-- Script for toggling the sidebar on mobile -->
 <script>

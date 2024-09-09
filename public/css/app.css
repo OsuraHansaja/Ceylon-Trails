@@ -1,3 +1,9 @@
+/* Reset default link styles across the entire site */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -10,21 +16,22 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 40px;
+    padding: 10px 20px;
     background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 60px;
 }
 
 .logo img {
     max-width: 60px;
     height: auto;
-    margin-left: 280px;
 }
 
+/* Updated to flex-wrap so the menu can stack on smaller screens */
 .top-bar .menu {
     display: flex;
-    gap: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .top-bar .menu a {
@@ -36,7 +43,6 @@ body, html {
 .top-bar .actions {
     display: flex;
     gap: 15px;
-    margin-left: 20px;
 }
 
 .top-bar .actions a {
@@ -52,7 +58,7 @@ body, html {
     justify-content: center;
     align-items: center;
     color: white;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     text-align: center;
 }
 
@@ -63,40 +69,108 @@ body, html {
     line-height: 1.2;
 }
 
+/* Adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .top-bar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+    }
+
+    .logo img {
+        margin: 0;
+    }
+
+    .banner h1 {
+        font-size: 80px;
+    }
+
+    .top-bar .menu {
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .top-bar .menu a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner h1 {
+        font-size: 60px;
+    }
+
+    .top-bar {
+        padding: 10px;
+    }
+
+    .top-bar .menu a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .banner h1 {
+        font-size: 40px;
+    }
+
+    .top-bar .menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .top-bar .menu a {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+}
+
+/* Bottom section */
 .bottom-links {
     display: flex;
     justify-content: space-between;
     padding: 20px 40px;
     background: #f8f8f8;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    flex-wrap: wrap; /* Enable wrapping for responsiveness */
 }
 
 .bottom-links div {
     flex: 1;
     text-align: center;
+    margin-bottom: 20px; /* Space between elements */
 }
 
 .bottom-links .related-sites p,
 .bottom-links .connect p,
 .bottom-links .legal p {
-    font-weight: 700; /* Bold headings */
+    font-weight: 900; /* Bolder text for titles */
+    color: #323232; /* Updated color */
 }
 
-.bottom-links .related-sites ul {
+.bottom-links .related-sites ul,
+.bottom-links .legal ul {
     list-style: none;
     padding: 0;
-    margin: 0 auto; /* Center-align the list */
-    display: inline-block; /* Center-align the list */
-    text-align: left; /* Align text to the left */
+    margin: 0;
 }
 
+/* Reverted the link style for the related sites list */
 .bottom-links .related-sites ul li {
     margin-bottom: 5px;
 }
 
 .bottom-links .related-sites ul li a {
     text-decoration: none;
-    color: #9A9A9A;
+    color: #9A9A9A; /* Original color */
+    font-weight: normal; /* Normal weight */
 }
 
 .bottom-links .connect ul {
@@ -113,11 +187,49 @@ body, html {
     height: 30px;
 }
 
-.bottom-links .legal p {
-    margin-bottom: 5px;
+/* Updated the legal section links to match the "Connect With Us" style */
+.bottom-links .legal ul {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
-.bottom-links .legal p a {
-    text-decoration: none;
-    color: #333;
+.bottom-links .legal ul li {
+    display: inline-block;
+}
+
+.bottom-links .legal ul li a {
+    text-decoration: none !important; /* Force removal of underline */
+    color: #323232 !important; /* Force color */
+    font-weight: 600 !important; /* Bolder font weight */
+}
+
+/* Mobile view adjustments */
+@media only screen and (max-width: 768px) {
+    .bottom-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .bottom-links .related-sites,
+    .bottom-links .connect,
+    .bottom-links .legal {
+        margin-bottom: 20px; /* Add some space between sections on mobile */
+    }
+
+    .bottom-links .legal ul {
+        flex-direction: column;
+    }
+}
+
+.item-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

@@ -12,6 +12,18 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
+Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
+Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
+
+
+
+
+
+
 // Standard User Routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
@@ -118,6 +130,9 @@ Route::middleware(['auth:host'])->group(function () {
     Route::get('/host/items/{item}/edit', [ItemController::class, 'edit'])->name('host.items.edit');
     Route::put('/host/items/{item}', [ItemController::class, 'update'])->name('host.items.update');
     Route::delete('/host/items/{item}', [ItemController::class, 'destroy'])->name('host.items.destroy');
+
+    //Routes for Statboard
+    Route::get('/host/statboard', [DashboardController::class, 'statboard'])->name('host.statboard');
 });
 
 
