@@ -22,8 +22,35 @@
 
             <!-- Location -->
             <div class="mb-4">
-                <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
-                <input type="text" id="location" name="location" value="{{ $event->location }}" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                <label for="location" class="block text-gray-700 font-medium mb-2">Location (District)</label>
+                <select id="location" name="location" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                    <option value="">Select a district</option>
+                    <option value="Ampara" {{ $event->location == 'Ampara' ? 'selected' : '' }}>Ampara</option>
+                    <option value="Anuradhapura" {{ $event->location == 'Anuradhapura' ? 'selected' : '' }}>Anuradhapura</option>
+                    <option value="Badulla" {{ $event->location == 'Badulla' ? 'selected' : '' }}>Badulla</option>
+                    <option value="Batticaloa" {{ $event->location == 'Batticaloa' ? 'selected' : '' }}>Batticaloa</option>
+                    <option value="Colombo" {{ $event->location == 'Colombo' ? 'selected' : '' }}>Colombo</option>
+                    <option value="Galle" {{ $event->location == 'Galle' ? 'selected' : '' }}>Galle</option>
+                    <option value="Gampaha" {{ $event->location == 'Gampaha' ? 'selected' : '' }}>Gampaha</option>
+                    <option value="Hambantota" {{ $event->location == 'Hambantota' ? 'selected' : '' }}>Hambantota</option>
+                    <option value="Jaffna" {{ $event->location == 'Jaffna' ? 'selected' : '' }}>Jaffna</option>
+                    <option value="Kalutara" {{ $event->location == 'Kalutara' ? 'selected' : '' }}>Kalutara</option>
+                    <option value="Kandy" {{ $event->location == 'Kandy' ? 'selected' : '' }}>Kandy</option>
+                    <option value="Kegalle" {{ $event->location == 'Kegalle' ? 'selected' : '' }}>Kegalle</option>
+                    <option value="Kilinochchi" {{ $event->location == 'Kilinochchi' ? 'selected' : '' }}>Kilinochchi</option>
+                    <option value="Kurunegala" {{ $event->location == 'Kurunegala' ? 'selected' : '' }}>Kurunegala</option>
+                    <option value="Mannar" {{ $event->location == 'Mannar' ? 'selected' : '' }}>Mannar</option>
+                    <option value="Matale" {{ $event->location == 'Matale' ? 'selected' : '' }}>Matale</option>
+                    <option value="Matara" {{ $event->location == 'Matara' ? 'selected' : '' }}>Matara</option>
+                    <option value="Monaragala" {{ $event->location == 'Monaragala' ? 'selected' : '' }}>Monaragala</option>
+                    <option value="Mullaitivu" {{ $event->location == 'Mullaitivu' ? 'selected' : '' }}>Mullaitivu</option>
+                    <option value="Nuwara Eliya" {{ $event->location == 'Nuwara Eliya' ? 'selected' : '' }}>Nuwara Eliya</option>
+                    <option value="Polonnaruwa" {{ $event->location == 'Polonnaruwa' ? 'selected' : '' }}>Polonnaruwa</option>
+                    <option value="Puttalam" {{ $event->location == 'Puttalam' ? 'selected' : '' }}>Puttalam</option>
+                    <option value="Ratnapura" {{ $event->location == 'Ratnapura' ? 'selected' : '' }}>Ratnapura</option>
+                    <option value="Trincomalee" {{ $event->location == 'Trincomalee' ? 'selected' : '' }}>Trincomalee</option>
+                    <option value="Vavuniya" {{ $event->location == 'Vavuniya' ? 'selected' : '' }}>Vavuniya</option>
+                </select>
             </div>
 
             <!-- Link -->
