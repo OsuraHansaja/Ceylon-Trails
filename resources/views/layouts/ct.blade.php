@@ -1,21 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Ceylon Trails</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    @livewireStyles
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="top-bar">
     <div class="logo">
-        <img src="{{ asset('images/logo.png') }}" alt="Ceylon Trails">
+        <!-- Logo Section -->
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Ceylon Trails Logo" class="h-12">
+        </a>
     </div>
     <div class="menu">
         <a href="#">Explore Sri Lanka</a>
-        <a href="#">Things To Do</a>
-        <a href="#">Events & Happenings</a>
+        <a href="{{ route('things.to.do') }}">Things To Do</a>
+        <a href="{{ route('happenings') }}">Events & Happenings</a>
         <a href="#">Travel Ideas</a>
         <a href="#">Travel Information</a>
     </div>
