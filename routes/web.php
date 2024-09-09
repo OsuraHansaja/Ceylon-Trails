@@ -12,6 +12,18 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
+Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
+Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
+
+
+
+
+
+
 // Standard User Routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
