@@ -19,7 +19,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
-
+//add route for information here
 
 
 
