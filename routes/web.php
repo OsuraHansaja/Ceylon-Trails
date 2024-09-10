@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
+
 // Home Route
 Route::get('/', function () {
     return view('home');
@@ -18,6 +19,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
+
 
 
 
@@ -136,7 +138,7 @@ Route::middleware(['auth:host'])->group(function () {
 });
 
 
-
+Route::get('/item/{id}', [ItemController::class, 'showDetails'])->name('item.details');
 
 // Middleware for user authentication
 Route::middleware([
