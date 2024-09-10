@@ -96,7 +96,7 @@
                         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded" style="background-color: #FE793D;">Submit Review</button>
                     </form>
                 @else
-                    <p>Please <a href="{{ route('login') }}" class="w-full px-4 py-2 font-semibold text-white rounded-[32px]">log in</a> to submit a review.</p>
+                    <p>Please <a href="{{ route('login') }}" class="text-orange-500">log in</a> to submit a review.</p>
                 @endauth
             </section>
 
