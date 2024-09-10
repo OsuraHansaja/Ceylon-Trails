@@ -23,7 +23,11 @@ Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenin
 
 
 
-
+use App\Http\Controllers\ProfileController;
+//Routes for profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.profile');
+});
 
 
 // Standard User Routes
