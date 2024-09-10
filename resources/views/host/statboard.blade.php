@@ -28,6 +28,12 @@
             <p class="text-2xl">{{ $totalReviews }}</p>
         </div>
 
+        <!-- Average Rating Section -->
+        <div class="bg-white p-4 rounded-lg shadow mb-8">
+            <h2 class="text-lg font-semibold">Average Rating</h2>
+            <p class="text-2xl">{{ $averageRating ? number_format($averageRating, 1) : 'Not Rated Yet' }} Stars</p>
+        </div>
+
         <!-- Calendar Section -->
         <div class="bg-white p-4 rounded-lg shadow">
             <h2 class="text-lg font-semibold">Upcoming Events</h2>
@@ -80,15 +86,12 @@
     </style>
 @endpush
 
-
 @push('scripts')
-    <!-- FullCalendar CSS -->
+    <!-- FullCalendar -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
-
-    <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 
-    <!-- Calendar initialization -->
+    <!-- Initialize Calendar -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let calendarEl = document.getElementById('calendar');
@@ -102,10 +105,9 @@
                 },
                 navLinks: true,
                 editable: false,
-                dayMaxEvents: true // allow "more" link when too many events
+                dayMaxEvents: true
             });
             calendar.render();
         });
     </script>
 @endpush
-
