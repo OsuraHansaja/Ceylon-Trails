@@ -138,5 +138,19 @@ class DashboardController extends Controller
 
     }
 
+    // Method to display reviews
+    public function reviews()
+    {
+        // Get the host user ID
+        $hostId = Auth::id();
+
+        // Fetch reviews for items the host created
+        $reviews = Review::whereHas('item', function($query) use ($hostId) {
+            $query->where('host_id', $hostId);
+        })->with('item')->get();
+
+        return view('host.reviews', compact('reviews'));
+    }
+
 }
 
