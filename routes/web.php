@@ -156,6 +156,4 @@ use App\Http\Controllers\CategoryController;
 
 //tourist cattegory selection
 Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
-
-
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
