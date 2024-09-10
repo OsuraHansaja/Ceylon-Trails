@@ -73,6 +73,18 @@ class EventController extends Controller
             $event->gallery_image_2 = $galleryImage2Path;
         }
 
+        // Handle gallery image 3 upload
+        if ($request->hasFile('gallery_image_3')) {
+            $galleryImage3Path = $request->file('gallery_image_3')->store('gallery_images', 'public');
+            $event->gallery_image_3 = $galleryImage3Path;
+        }
+
+        // Handle gallery image 4 upload
+        if ($request->hasFile('gallery_image_4')) {
+            $galleryImage4Path = $request->file('gallery_image_4')->store('gallery_images', 'public');
+            $event->gallery_image_4 = $galleryImage4Path;
+        }
+
         // Save the event
         $event->save();
 
@@ -159,4 +171,11 @@ class EventController extends Controller
 
         return redirect()->route('host.dashboard')->with('success', 'Event deleted successfully.');
     }
+
+    public function showDetails($id)
+    {
+        $event = Event::with('categories')->findOrFail($id);
+        return view('event.details', compact('event'));
+    }
+
 }

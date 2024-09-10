@@ -137,8 +137,10 @@ Route::middleware(['auth:host'])->group(function () {
     Route::get('/host/statboard', [DashboardController::class, 'statboard'])->name('host.statboard');
 });
 
-
+//Routes to make displayed content clickable
 Route::get('/item/{id}', [ItemController::class, 'showDetails'])->name('item.details');
+Route::get('/event/{id}', [EventController::class, 'showDetails'])->name('event.details');
+
 
 // Middleware for user authentication
 Route::middleware([

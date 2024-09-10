@@ -76,6 +76,18 @@
                 <input type="file" id="gallery_image_2" name="gallery_image_2" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
             </div>
 
+            <!-- Gallery Image 3 -->
+            <div class="mb-4">
+                <label for="gallery_image_3" class="block text-gray-700 font-medium mb-2">Gallery Image 3</label>
+                <input type="file" id="gallery_image_3" name="gallery_image_3" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
+            <!-- Gallery Image 4 -->
+            <div class="mb-4">
+                <label for="gallery_image_4" class="block text-gray-700 font-medium mb-2">Gallery Image 4</label>
+                <input type="file" id="gallery_image_4" name="gallery_image_4" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
             <!-- Start Date -->
             <div class="mb-4">
                 <label for="start_date" class="block text-gray-700 font-medium mb-2">Start Date</label>

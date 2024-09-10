@@ -17,6 +17,8 @@ class Event extends Model
         'thumbnail_image',
         'gallery_image_1',
         'gallery_image_2',
+        'gallery_image_3',
+        'gallery_image_4',
         'large_description',
         'host_id',
         'start_date',
