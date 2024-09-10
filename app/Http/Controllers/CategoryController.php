@@ -26,6 +26,6 @@ class CategoryController extends Controller
         $user = Auth::user();
         $user->categories()->sync($request->categories);
 
-        return redirect()->route('dashboard')->with('success', 'Categories selected successfully.');
+        return redirect()->route('home')->with('success', 'Categories selected successfully.');
     }
 }

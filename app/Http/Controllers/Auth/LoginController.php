@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     public function showLoginForm()
     {
