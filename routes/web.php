@@ -139,6 +139,9 @@ Route::middleware(['auth:host'])->group(function () {
 
     //Routes for Statboard
     Route::get('/host/statboard', [DashboardController::class, 'statboard'])->name('host.statboard');
+
+    //Routes for reviews
+    Route::get('/host/reviews', [DashboardController::class, 'reviews'])->name('host.reviews');
 });
 
 //Routes to make displayed content clickable
