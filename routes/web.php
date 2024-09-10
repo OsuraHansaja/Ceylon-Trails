@@ -161,3 +161,11 @@ use App\Http\Controllers\CategoryController;
 //tourist cattegory selection
 Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+
+//reviews
+use App\Http\Controllers\ReviewController;
+
+Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
+Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+

@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -44,7 +48,7 @@
                 </button>
 
                 <!-- Dropdown Menu -->
-                <ul class="absolute right-0 mt-1 w-48 bg-white border rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10 pointer-events-none group-hover:pointer-events-auto">
+                <ul class="absolute right-0 mt-0 w-48 bg-white border rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10 pointer-events-none group-hover:pointer-events-auto">
                     <li><a href="{{ route('profile.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
@@ -95,6 +99,5 @@
     </div>
 </div>
 
-<!-- No extra JavaScript required since TailwindCSS's hover will handle this -->
 </body>
 </html>
