@@ -19,7 +19,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
-
+//add route for information here
 
 
 
@@ -152,3 +152,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+use App\Http\Controllers\CategoryController;
+
+//tourist cattegory selection
+Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');

@@ -17,12 +17,29 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+//        $this->validator($request->all())->validate();
+//
+//        $user = $this->create($request->all());
+//
+//        return redirect()->route('dashboard');
+
         $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
 
-        return redirect()->route('dashboard');
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user) ?: redirect()->route('dashboard');
     }
+
+//    public function register(Request $request)
+//    {
+//        $this->validator($request->all())->validate();
+//
+//        $user = $this->create($request->all());
+//
+//        return redirect()->route('dashboard');
+//    }
 
     protected function validator(array $data)
     {
@@ -48,6 +65,15 @@ class RegisterController extends Controller
             'dob' => $data['dob'],
             'gender' => $data['gender'],
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        return redirect()->route('select.categories');
+    }
+    protected function guard()
+    {
+        return auth()->guard();
     }
 }
 
