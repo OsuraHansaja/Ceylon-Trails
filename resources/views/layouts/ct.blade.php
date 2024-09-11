@@ -30,7 +30,7 @@
         </a>
     </div>
     <div class="menu">
-        <a href="#">Explore Sri Lanka</a>
+        <a href="{{ route('explore.sri.lanka') }}">Explore Sri Lanka</a>
         <a href="{{ route('things.to.do') }}">Things To Do</a>
         <a href="{{ route('happenings') }}">Events & Happenings</a>
         <a href="#">Travel Ideas</a>
