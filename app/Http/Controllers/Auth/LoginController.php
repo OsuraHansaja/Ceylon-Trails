@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     public function showLoginForm()
     {
@@ -31,7 +31,7 @@ class LoginController extends Controller
             'email' => [trans('auth.failed')],
         ]);
     }
-
+//test
     public function logout(Request $request)
     {
         Auth::logout();

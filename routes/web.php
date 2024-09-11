@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
+
 // Home Route
 Route::get('/', function () {
     return view('home');
@@ -18,10 +19,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
+//add route for information here
 
 
 
-
+use App\Http\Controllers\ProfileController;
+//Routes for profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.profile');
+});
 
 
 // Standard User Routes
@@ -133,9 +139,14 @@ Route::middleware(['auth:host'])->group(function () {
 
     //Routes for Statboard
     Route::get('/host/statboard', [DashboardController::class, 'statboard'])->name('host.statboard');
+
+    //Routes for reviews
+    Route::get('/host/reviews', [DashboardController::class, 'reviews'])->name('host.reviews');
 });
 
-
+//Routes to make displayed content clickable
+Route::get('/item/{id}', [ItemController::class, 'showDetails'])->name('item.details');
+Route::get('/event/{id}', [EventController::class, 'showDetails'])->name('event.details');
 
 
 // Middleware for user authentication
@@ -148,3 +159,16 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+use App\Http\Controllers\CategoryController;
+
+//tourist cattegory selection
+Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+
+//reviews
+use App\Http\Controllers\ReviewController;
+
+Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
+Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+

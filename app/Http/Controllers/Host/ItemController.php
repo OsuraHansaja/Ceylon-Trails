@@ -40,6 +40,11 @@ class ItemController extends Controller
             //'categories' => 'required|array',
             //'categories.*' => 'exists:categories,id',
             //'large_description' => 'required|string',
+            //'thumbnail_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'gallery_image_1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate for gallery image 1
+            //'gallery_image_2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate for gallery image 2
+    ]);
+
         ]); */
 
         $item = new Item();
@@ -70,6 +75,30 @@ class ItemController extends Controller
             $filename = time() . '.' . $request->thumbnail_image->extension();
             $request->thumbnail_image->move(public_path('thumbnails'), $filename); // Move the uploaded file
             $item->thumbnail_image = 'thumbnails/' . $filename; // Save the file path in the database
+        }
+
+        // Handle gallery image 1 upload
+        if ($request->hasFile('gallery_image_1')) {
+            $galleryImage1Path = $request->file('gallery_image_1')->store('gallery_images', 'public');
+            $item->gallery_image_1 = $galleryImage1Path;
+        }
+
+        // Handle gallery image 2 upload
+        if ($request->hasFile('gallery_image_2')) {
+            $galleryImage2Path = $request->file('gallery_image_2')->store('gallery_images', 'public');
+            $item->gallery_image_2 = $galleryImage2Path;
+        }
+
+        // Handle gallery image 3 upload
+        if ($request->hasFile('gallery_image_3')) {
+            $galleryImage3Path = $request->file('gallery_image_3')->store('gallery_images', 'public');
+            $item->gallery_image_3 = $galleryImage3Path;
+        }
+
+        // Handle gallery image 4 upload
+        if ($request->hasFile('gallery_image_4')) {
+            $galleryImage4Path = $request->file('gallery_image_4')->store('gallery_images', 'public');
+            $item->gallery_image_4 = $galleryImage4Path;
         }
 
         $item->save();
@@ -159,6 +188,11 @@ class ItemController extends Controller
         return redirect()->route('host.dashboard')->with('status', 'Item deleted successfully!');
     }
 
+    public function showDetails($id)
+    {
+        $item = Item::with('categories')->findOrFail($id); // Fetch the item with its categories
+        return view('item.details', compact('item')); // Pass the item to the view
+    }
 
 
 

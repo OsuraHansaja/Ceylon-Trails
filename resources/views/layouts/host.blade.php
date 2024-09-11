@@ -118,6 +118,9 @@
                             <li><a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">Guide</a></li>
                         </ul>
                     </li>
+                    <li class="mb-2">
+                        <a href="{{ route('host.reviews') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">My Reviews</a>
+                    </li>
                     <li>
                         <a href="{{ route('host.logout') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

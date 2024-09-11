@@ -36,7 +36,9 @@ class EventController extends Controller
             'link' => 'nullable|url',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'thumbnail_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gallery_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gallery_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'categories' => 'required|array',
         ]);*/
 
@@ -57,6 +59,30 @@ class EventController extends Controller
             $filename = time() . '.' . $request->thumbnail_image->extension();
             $request->thumbnail_image->move(public_path('thumbnails'), $filename); // Move the uploaded file
             $event->thumbnail_image = 'thumbnails/' . $filename; // Save the file path in the database
+        }
+
+        // Handle gallery image 1 upload
+        if ($request->hasFile('gallery_image_1')) {
+            $galleryImage1Path = $request->file('gallery_image_1')->store('gallery_images', 'public');
+            $event->gallery_image_1 = $galleryImage1Path;
+        }
+
+        // Handle gallery image 2 upload
+        if ($request->hasFile('gallery_image_2')) {
+            $galleryImage2Path = $request->file('gallery_image_2')->store('gallery_images', 'public');
+            $event->gallery_image_2 = $galleryImage2Path;
+        }
+
+        // Handle gallery image 3 upload
+        if ($request->hasFile('gallery_image_3')) {
+            $galleryImage3Path = $request->file('gallery_image_3')->store('gallery_images', 'public');
+            $event->gallery_image_3 = $galleryImage3Path;
+        }
+
+        // Handle gallery image 4 upload
+        if ($request->hasFile('gallery_image_4')) {
+            $galleryImage4Path = $request->file('gallery_image_4')->store('gallery_images', 'public');
+            $event->gallery_image_4 = $galleryImage4Path;
         }
 
         // Save the event
@@ -98,6 +124,8 @@ class EventController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gallery_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gallery_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'categories' => 'required|array',
         ]);*/
 
@@ -143,4 +171,11 @@ class EventController extends Controller
 
         return redirect()->route('host.dashboard')->with('success', 'Event deleted successfully.');
     }
+
+    public function showDetails($id)
+    {
+        $event = Event::with('categories')->findOrFail($id);
+        return view('event.details', compact('event'));
+    }
+
 }
