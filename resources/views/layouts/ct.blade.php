@@ -98,6 +98,6 @@
         <p><a href="#">Report Site Issues</a></p>
     </div>
 </div>
-
+@stack('scripts')
 </body>
 </html>

@@ -26,6 +26,19 @@ Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
 
 
+use App\Http\Controllers\ExploreController;
+
+//Map routes
+Route::get('/explore-sri-lanka', [ExploreController::class, 'index'])->name('explore.sri.lanka');
+
+// Route for fetching top items based on district ID
+Route::get('/district-items/{district}', [ExploreController::class, 'getDistrictItems'])->name('district.items');
+
+Route::get('/explore-sri-lanka/items/{district}', [ExploreController::class, 'getItemsByDistrict']);
+Route::get('/explore-sri-lanka', [ExploreController::class, 'exploreSriLanka']);
+Route::get('/explore-sri-lanka', [ExploreController::class, 'exploreSriLanka'])->name('explore.sri.lanka');
+
+
 
 
 use App\Http\Controllers\ProfileController;
