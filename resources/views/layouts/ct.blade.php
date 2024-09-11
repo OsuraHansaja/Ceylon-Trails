@@ -34,7 +34,7 @@
         <a href="{{ route('things.to.do') }}">Things To Do</a>
         <a href="{{ route('happenings') }}">Events & Happenings</a>
         <a href="#">Travel Ideas</a>
-        <a href="#">Travel Information</a>
+        <a href="{{route('information')}}">Travel Information</a>
     </div>
     <div class="actions">
         @auth

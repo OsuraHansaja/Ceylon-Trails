@@ -1,0 +1,135 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 4em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.essential-info {
+    background-color: #eeeeee;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.essential-info p {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 10px;
+}
+
+.tips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.tip {
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    align-items: center;
+}
+
+.tip:hover {
+    transform: scale(1.05);
+}
+
+.tip-icon {
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.tip-content {
+    flex: 1;
+}
+
+.tip h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.tip p {
+    font-size: 0.95em;
+    line-height: 1.5em;
+}
+
+.tip img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 3em;
+    }
+
+    .essential-info {
+        padding: 20px;
+    }
+
+    .tips {
+        grid-template-columns: 1fr;
+    }
+
+    .tip {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tip-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .tip h2 {
+        font-size: 1.2em;
+    }
+
+    .tip p {
+        font-size: 0.9em;
+    }
+
+    .tip img {
+        width: 60px;
+        height: 60px;
+    }
+}
