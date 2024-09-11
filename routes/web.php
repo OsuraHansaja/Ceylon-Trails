@@ -18,6 +18,27 @@ Route::get('/information', function () {
     return view('information');
 })->name('information');
 
+//route for terms page
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+//route for policy page
+Route::get('/policy', function () {
+    return view('policy');
+})->name('policy');
+
+//route for cookie page
+Route::get('/cookie', function () {
+    return view('cookie');
+})->name('cookie');
+
+//route for site-issues page
+Route::get('/site-issues', function () {
+    return view('site-issues');
+})->name('site-issues');
+
+
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -176,5 +197,10 @@ use App\Http\Controllers\ReviewController;
 
 Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+//report issues
+use App\Http\Controllers\IssueController;
+
+Route::post('/report-site-issues', [IssueController::class, 'submit'])->name('report.issue.submit');
 
 
