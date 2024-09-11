@@ -13,13 +13,18 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+//route for information page
+Route::get('/information', function () {
+    return view('information');
+})->name('information');
+
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
-//add route for information here
+
 
 
 
@@ -171,4 +176,5 @@ use App\Http\Controllers\ReviewController;
 
 Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
 
