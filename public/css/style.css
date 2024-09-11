@@ -87,7 +87,7 @@ h3 {
     object-fit: cover;
 }
 
-/* Media Queries for Mobile Responsiveness */
+/* Media Queries to make the website Mobile Responsiveness */
 @media (max-width: 768px) {
     .container {
         width: 90%;
