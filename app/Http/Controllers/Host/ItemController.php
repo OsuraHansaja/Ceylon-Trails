@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ItemController extends Controller
@@ -38,6 +40,11 @@ class ItemController extends Controller
             //'categories' => 'required|array',
             //'categories.*' => 'exists:categories,id',
             //'large_description' => 'required|string',
+            //'thumbnail_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'gallery_image_1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate for gallery image 1
+            //'gallery_image_2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate for gallery image 2
+    ]);
+
         ]); */
 
         $item = new Item();
@@ -70,18 +77,49 @@ class ItemController extends Controller
             $item->thumbnail_image = 'thumbnails/' . $filename; // Save the file path in the database
         }
 
+        // Handle gallery image 1 upload
+        if ($request->hasFile('gallery_image_1')) {
+            $galleryImage1Path = $request->file('gallery_image_1')->store('gallery_images', 'public');
+            $item->gallery_image_1 = $galleryImage1Path;
+        }
+
+        // Handle gallery image 2 upload
+        if ($request->hasFile('gallery_image_2')) {
+            $galleryImage2Path = $request->file('gallery_image_2')->store('gallery_images', 'public');
+            $item->gallery_image_2 = $galleryImage2Path;
+        }
+
+        // Handle gallery image 3 upload
+        if ($request->hasFile('gallery_image_3')) {
+            $galleryImage3Path = $request->file('gallery_image_3')->store('gallery_images', 'public');
+            $item->gallery_image_3 = $galleryImage3Path;
+        }
+
+        // Handle gallery image 4 upload
+        if ($request->hasFile('gallery_image_4')) {
+            $galleryImage4Path = $request->file('gallery_image_4')->store('gallery_images', 'public');
+            $item->gallery_image_4 = $galleryImage4Path;
+        }
+
         $item->save();
 
         /*// Debug the categories before attaching
         dd($request->category_ids);*/
 
-        // Convert the comma-separated string to an array
-        $categoryIdsArray = explode(',', $request->category_ids);
 
         //dd($categoryIdsArray); This will dump all the form data and stop the execution, for debugging
 
-        // Attach categories
-        $item->categories()->attach($request->category_ids);
+        // Manually Insert Categories into the category_item pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into the pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_item')->insert([
+                'category_id' => (int) $categoryId,
+                'item_id' => $item->id,
+            ]);
+        }
+
 
         // Redirect to dashboard with success message
         return redirect()->route('host.dashboard')->with('status', 'Attraction created successfully!');
@@ -118,8 +156,22 @@ class ItemController extends Controller
         $item->large_description = $request->large_description;
         $item->save();
 
-        // Sync categories
-        $item->categories()->sync($request->category_ids);
+        // Get selected categories
+        $categories = $request->input('category_ids');
+
+        // Delete existing categories for the item in the pivot table
+        DB::table('category_item')->where('item_id', $item->id)->delete();
+
+        // Manually Insert Categories into the category_item pivot table
+        $categories = $request->input('category_ids'); // Get selected categories
+
+        // Insert categories into the pivot table manually
+        foreach ($request->input('category_ids') as $categoryId) {
+            DB::table('category_item')->insert([
+                'category_id' => (int) $categoryId,
+                'item_id' => $item->id,
+            ]);
+        }
 
         return redirect()->route('host.dashboard')->with('status', 'Attraction updated successfully!');
     }
@@ -136,6 +188,11 @@ class ItemController extends Controller
         return redirect()->route('host.dashboard')->with('status', 'Item deleted successfully!');
     }
 
+    public function showDetails($id)
+    {
+        $item = Item::with('categories')->findOrFail($id); // Fetch the item with its categories
+        return view('item.details', compact('item')); // Pass the item to the view
+    }
 
 
 

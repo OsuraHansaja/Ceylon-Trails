@@ -15,6 +15,10 @@ class Event extends Model
         'location',
         'link',
         'thumbnail_image',
+        'gallery_image_1',
+        'gallery_image_2',
+        'gallery_image_3',
+        'gallery_image_4',
         'large_description',
         'host_id',
         'start_date',
@@ -36,6 +40,6 @@ class Event extends Model
     // Relationship with categories (if events have multiple categories)
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_event','event_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'category_event');
     }
 }

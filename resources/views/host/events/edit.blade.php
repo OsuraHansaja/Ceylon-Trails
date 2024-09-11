@@ -22,8 +22,35 @@
 
             <!-- Location -->
             <div class="mb-4">
-                <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
-                <input type="text" id="location" name="location" value="{{ $event->location }}" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                <label for="location" class="block text-gray-700 font-medium mb-2">Location (District)</label>
+                <select id="location" name="location" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                    <option value="">Select a district</option>
+                    <option value="Ampara" {{ $event->location == 'Ampara' ? 'selected' : '' }}>Ampara</option>
+                    <option value="Anuradhapura" {{ $event->location == 'Anuradhapura' ? 'selected' : '' }}>Anuradhapura</option>
+                    <option value="Badulla" {{ $event->location == 'Badulla' ? 'selected' : '' }}>Badulla</option>
+                    <option value="Batticaloa" {{ $event->location == 'Batticaloa' ? 'selected' : '' }}>Batticaloa</option>
+                    <option value="Colombo" {{ $event->location == 'Colombo' ? 'selected' : '' }}>Colombo</option>
+                    <option value="Galle" {{ $event->location == 'Galle' ? 'selected' : '' }}>Galle</option>
+                    <option value="Gampaha" {{ $event->location == 'Gampaha' ? 'selected' : '' }}>Gampaha</option>
+                    <option value="Hambantota" {{ $event->location == 'Hambantota' ? 'selected' : '' }}>Hambantota</option>
+                    <option value="Jaffna" {{ $event->location == 'Jaffna' ? 'selected' : '' }}>Jaffna</option>
+                    <option value="Kalutara" {{ $event->location == 'Kalutara' ? 'selected' : '' }}>Kalutara</option>
+                    <option value="Kandy" {{ $event->location == 'Kandy' ? 'selected' : '' }}>Kandy</option>
+                    <option value="Kegalle" {{ $event->location == 'Kegalle' ? 'selected' : '' }}>Kegalle</option>
+                    <option value="Kilinochchi" {{ $event->location == 'Kilinochchi' ? 'selected' : '' }}>Kilinochchi</option>
+                    <option value="Kurunegala" {{ $event->location == 'Kurunegala' ? 'selected' : '' }}>Kurunegala</option>
+                    <option value="Mannar" {{ $event->location == 'Mannar' ? 'selected' : '' }}>Mannar</option>
+                    <option value="Matale" {{ $event->location == 'Matale' ? 'selected' : '' }}>Matale</option>
+                    <option value="Matara" {{ $event->location == 'Matara' ? 'selected' : '' }}>Matara</option>
+                    <option value="Monaragala" {{ $event->location == 'Monaragala' ? 'selected' : '' }}>Monaragala</option>
+                    <option value="Mullaitivu" {{ $event->location == 'Mullaitivu' ? 'selected' : '' }}>Mullaitivu</option>
+                    <option value="Nuwara Eliya" {{ $event->location == 'Nuwara Eliya' ? 'selected' : '' }}>Nuwara Eliya</option>
+                    <option value="Polonnaruwa" {{ $event->location == 'Polonnaruwa' ? 'selected' : '' }}>Polonnaruwa</option>
+                    <option value="Puttalam" {{ $event->location == 'Puttalam' ? 'selected' : '' }}>Puttalam</option>
+                    <option value="Ratnapura" {{ $event->location == 'Ratnapura' ? 'selected' : '' }}>Ratnapura</option>
+                    <option value="Trincomalee" {{ $event->location == 'Trincomalee' ? 'selected' : '' }}>Trincomalee</option>
+                    <option value="Vavuniya" {{ $event->location == 'Vavuniya' ? 'selected' : '' }}>Vavuniya</option>
+                </select>
             </div>
 
             <!-- Link -->
@@ -47,20 +74,23 @@
             <!-- Categories -->
             <div class="mb-4">
                 <label for="categories" class="block text-gray-700 font-medium mb-2">Categories</label>
-                <div id="categories" class="flex flex-wrap gap-2">
-                    @foreach ($categories as $category)
-                        <button type="button"
-                                class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
-                                data-category-id="{{ $category->id }}"
-                                style="border-color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#333' : '#ccc' }};
-                                       color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#fff' : '#333' }};
-                                       background-color: {{ in_array($category->id, $event->categories->pluck('id')->toArray()) ? '#333' : 'transparent' }};">
-                            {{ $category->name }}
-                        </button>
-                    @endforeach
+                <div class="mb-4">
+                    <div id="categories" class="flex flex-wrap gap-2">
+                        @foreach ($categories as $category)
+                            <button type="button"
+                                    class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
+                                    data-category-id="{{ $category->id }}"
+                                    style="border-color: #333; color: #333;">
+                                {{ $category->name }}
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
-                <input type="hidden" name="category_ids" id="selected-categories" value="{{ implode(',', $event->categories->pluck('id')->toArray()) }}">
             </div>
+
+            <!-- Hidden inputs for selected categories will be appended here -->
+            <div id="category-inputs"></div>
+
 
             <!-- Large Description -->
             <div class="mb-4">
@@ -73,11 +103,11 @@
     </div>
 @endsection
 
-<!-- script for selecting category test -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedCategoriesInput = document.getElementById('selected-categories');
+        const categoryInputsDiv = document.getElementById('category-inputs');
         const categoryButtons = document.querySelectorAll('.category-button');
+        let selectedCategories = [];
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -98,15 +128,25 @@
         });
 
         function addCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
-            selectedCategories.push(id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            if (!selectedCategories.includes(id)) {
+                selectedCategories.push(id);
+                // Create a new hidden input for each selected category
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category_ids[]';
+                input.value = id;
+                input.id = `category-input-${id}`;
+                categoryInputsDiv.appendChild(input);
+            }
         }
 
         function removeCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
             selectedCategories = selectedCategories.filter(c => c !== id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            const inputToRemove = document.getElementById(`category-input-${id}`);
+            if (inputToRemove) {
+                inputToRemove.remove();
+            }
         }
     });
 </script>
+

@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class HostLoginController extends Controller
 {
-    protected $redirectTo = '/host/dashboard';  // Redirect to the host dashboard
+    protected $redirectTo = '/host/statboard';  // Redirect to the host dashboard
 
     public function showLoginForm()
     {

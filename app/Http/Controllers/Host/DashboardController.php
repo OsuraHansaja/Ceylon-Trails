@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Host;
 use App\Http\Controllers\Controller;
 use App\Models\Item;    // Import the Item model (Attractions)
 use App\Models\Event;   // Import the Event model
+use App\Models\Review;   // Import the Review model
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class DashboardController extends Controller
@@ -70,6 +74,83 @@ class DashboardController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
+    public function statboard()
+    {
+        // Get the ID of the currently logged-in host
+        $hostId = Auth::id();
+
+        // Fetch total counts
+        $totalAttractions = Item::where('host_id', auth()->id())->count();
+        $totalEvents = Event::where('host_id', auth()->id())->count();
+        $totalGuides = 0; // Placeholder since guides aren't implemented yet
+        $totalReviews = 0; // Placeholder until reviews are implemented
+
+
+        /*
+        // Fetch ratings and calculate average
+        $averageRating = Rating::whereIn('item_type', ['attraction', 'event', 'guide'])
+            ->where('host_id', auth()->id())
+            ->avg('rating') ?? 0;
+
+        // Rating breakdown: How many 1-star, 2-star, etc.
+        $ratingsBreakdown = Rating::select(DB::raw('rating, count(*) as count'))
+            ->whereIn('item_type', ['attraction', 'event', 'guide'])
+            ->where('host_id', auth()->id())
+            ->groupBy('rating')
+            ->pluck('count', 'rating')
+            ->toArray();
+
+        // Default values for any missing rating categories
+        $ratingsBreakdown = array_replace([1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0], $ratingsBreakdown);*/
+
+        //New reviews data gathering logic
+        // Fetch total number of reviews for all items
+        $totalReviews = Review::whereHas('item', function($query) use ($hostId) {
+            $query->where('host_id', $hostId);
+        })->count();
+
+        // Fetch the average rating for all items
+        $averageRating = Review::whereHas('item', function($query) use ($hostId) {
+            $query->where('host_id', $hostId);
+        })->avg('rating');
+
+        // Fetch a breakdown of the number of reviews per rating (1 to 5 stars)
+        $ratingBreakdown = Review::whereHas('item', function($query) use ($hostId) {
+            $query->where('host_id', $hostId);
+        })->select('rating', DB::raw('count(*) as count'))
+            ->groupBy('rating')
+            ->get();
+
+
+        // Fetch upcoming events for the calendar
+        $upcomingEvents = Event::where('host_id', auth()->id())
+            ->where('start_date', '>=', now())
+            ->get(['title', 'start_date as start'])
+            ->toArray();
+
+        /*Uncomment this once the rating stuff is ready
+        return view('host.statboard', compact(
+            'totalAttractions', 'totalEvents', 'totalGuides', 'totalReviews',
+            'averageRating', 'ratingsBreakdown', 'upcomingEvents'
+        ));*/
+
+        return view('host.statboard', compact('totalAttractions', 'totalEvents', 'totalGuides', 'totalReviews', 'averageRating', 'ratingBreakdown', 'upcomingEvents'));
+
+    }
+
+    // Method to display reviews
+    public function reviews()
+    {
+        // Get the host user ID
+        $hostId = Auth::id();
+
+        // Fetch reviews for items the host created
+        $reviews = Review::whereHas('item', function($query) use ($hostId) {
+            $query->where('host_id', $hostId);
+        })->with('item')->get();
+
+        return view('host.reviews', compact('reviews'));
+    }
 
 }
 

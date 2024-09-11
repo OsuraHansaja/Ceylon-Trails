@@ -21,8 +21,35 @@
 
             <!-- Location -->
             <div class="mb-4">
-                <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
-                <input type="text" id="location" name="location" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                <label for="location" class="block text-gray-700 font-medium mb-2">Location (District)</label>
+                <select id="location" name="location" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+                    <option value="">Select a district</option>
+                    <option value="Ampara">Ampara</option>
+                    <option value="Anuradhapura">Anuradhapura</option>
+                    <option value="Badulla">Badulla</option>
+                    <option value="Batticaloa">Batticaloa</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Gampaha">Gampaha</option>
+                    <option value="Hambantota">Hambantota</option>
+                    <option value="Jaffna">Jaffna</option>
+                    <option value="Kalutara">Kalutara</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Kegalle">Kegalle</option>
+                    <option value="Kilinochchi">Kilinochchi</option>
+                    <option value="Kurunegala">Kurunegala</option>
+                    <option value="Mannar">Mannar</option>
+                    <option value="Matale">Matale</option>
+                    <option value="Matara">Matara</option>
+                    <option value="Monaragala">Monaragala</option>
+                    <option value="Mullaitivu">Mullaitivu</option>
+                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                    <option value="Polonnaruwa">Polonnaruwa</option>
+                    <option value="Puttalam">Puttalam</option>
+                    <option value="Ratnapura">Ratnapura</option>
+                    <option value="Trincomalee">Trincomalee</option>
+                    <option value="Vavuniya">Vavuniya</option>
+                </select>
             </div>
 
             <!-- Link -->
@@ -37,12 +64,30 @@
                 <input type="file" id="thumbnail_image" name="thumbnail_image" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
             </div>
 
-
-            <!-- Cover Photo
+            <!-- Gallery Image 1 -->
             <div class="mb-4">
-                <label for="cover_photo" class="block text-gray-700 font-medium mb-2">Cover Photo</label>
-                <input type="file" id="cover_photo" name="cover_photo" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div> -->
+                <label for="gallery_image_1" class="block text-gray-700 font-medium mb-2">Gallery Image 1</label>
+                <input type="file" id="gallery_image_1" name="gallery_image_1" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
+            <!-- Gallery Image 2 -->
+            <div class="mb-4">
+                <label for="gallery_image_2" class="block text-gray-700 font-medium mb-2">Gallery Image 2</label>
+                <input type="file" id="gallery_image_2" name="gallery_image_2" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
+            <!-- Gallery Image 3 -->
+            <div class="mb-4">
+                <label for="gallery_image_3" class="block text-gray-700 font-medium mb-2">Gallery Image 3</label>
+                <input type="file" id="gallery_image_3" name="gallery_image_3" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
+            <!-- Gallery Image 4 -->
+            <div class="mb-4">
+                <label for="gallery_image_4" class="block text-gray-700 font-medium mb-2">Gallery Image 4</label>
+                <input type="file" id="gallery_image_4" name="gallery_image_4" class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
+            </div>
+
 
             <!-- Categories -->
             <div class="mb-4">
@@ -58,9 +103,11 @@
                             </button>
                         @endforeach
                     </div>
-                    <input type="hidden" name="category_ids" id="selected-categories">
                 </div>
             </div>
+
+            <!-- Hidden inputs for selected categories will be appended here -->
+            <div id="category-inputs"></div>
 
             <!-- Large Description -->
             <div class="mb-4">
@@ -68,24 +115,16 @@
                 <textarea id="large_description" name="large_description" required class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500"></textarea>
             </div>
 
-            <!-- Gallery
-            <div class="mb-4">
-                <label for="gallery" class="block text-gray-700 font-medium mb-2">Gallery Images (up to 6)</label>
-                <input type="file" id="gallery" name="gallery[]" multiple class="w-full p-3 border rounded-md focus:ring focus:ring-orange-500">
-            </div>  -->
-
             <button type="submit" class="mt-4 text-white font-bold p-3 rounded-md" style="background-color: #EA7529; opacity: 1;" onmouseover="this.style.backgroundColor='#ff8000'" onmouseout="this.style.backgroundColor='#EA7529'">Create Attraction</button>
-
-
         </form>
     </div>
 @endsection
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedCategoriesInput = document.getElementById('selected-categories');
+        const categoryInputsDiv = document.getElementById('category-inputs');
         const categoryButtons = document.querySelectorAll('.category-button');
+        let selectedCategories = [];
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -106,15 +145,24 @@
         });
 
         function addCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
-            selectedCategories.push(id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            if (!selectedCategories.includes(id)) {
+                selectedCategories.push(id);
+                // Create a new hidden input for each selected category
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'category_ids[]';
+                input.value = id;
+                input.id = `category-input-${id}`;
+                categoryInputsDiv.appendChild(input);
+            }
         }
 
         function removeCategory(id) {
-            let selectedCategories = selectedCategoriesInput.value.split(',').filter(c => c);
             selectedCategories = selectedCategories.filter(c => c !== id);
-            selectedCategoriesInput.value = selectedCategories.join(',');
+            const inputToRemove = document.getElementById(`category-input-${id}`);
+            if (inputToRemove) {
+                inputToRemove.remove();
+            }
         }
     });
 </script>
