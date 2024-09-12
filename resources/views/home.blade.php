@@ -51,9 +51,11 @@
             </div>
             <!-- View More Button -->
             <div class="mt-6 text-center">
-                <button class="bg-black text-white font-bold py-2 px-4 rounded">
-                    View More
-                </button>
+                <a href="{{ route('things.to.do') }}">
+                    <button id="view-more-btn" class="bg-black text-white font-bold py-2 px-4 rounded">
+                        View More
+                    </button>
+                </a>
             </div>
         </div>
     </section>
@@ -101,9 +103,11 @@
             </div>
             <!-- View More Button -->
             <div class="mt-6 text-center">
-                <button class="bg-black text-white font-bold py-2 px-4 rounded">
-                    View More
-                </button>
+                <a href="{{ route('happenings') }}">
+                    <button id="view-more-btn" class="bg-black text-white font-bold py-2 px-4 rounded">
+                        View More
+                    </button>
+                </a>
             </div>
         </div>
     </section>
