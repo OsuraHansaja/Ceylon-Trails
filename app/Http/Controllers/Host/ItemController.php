@@ -194,6 +194,38 @@ class ItemController extends Controller
         return view('item.details', compact('item')); // Pass the item to the view
     }
 
+    public function filterItems($categoryId)
+    {
+        if ($categoryId === 'all') {
+            $items = Item::with('categories')->take(4)->get();
+        } else {
+            $items = Item::whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('categories.id', $categoryId);
+            })->with('categories')->take(4)->get();
+        }
+
+        return response()->json($items);
+    }
+
+    public function filterItemsPaginated(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $offset = $request->offset ?? 0;
+
+        if ($categoryId === 'all') {
+            // Load all items paginated by 8
+            $items = Item::with('categories')->skip($offset)->take(8)->get();
+        } else {
+            // Load items by category paginated by 8
+            $items = Item::whereHas('categories', function($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })->skip($offset)->take(8)->with('categories')->get();
+        }
+
+        return response()->json($items);
+    }
+
+
 
 
 }

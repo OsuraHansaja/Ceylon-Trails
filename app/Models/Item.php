@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Item extends Model
 {
     protected $fillable = [
@@ -19,6 +20,8 @@ class Item extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+
 
 }
 //This is the model for the Attractions, it was incorrectly named Item and has remained so due to inability to adjust this late.

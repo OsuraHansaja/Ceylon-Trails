@@ -13,13 +13,31 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+//route for information page
+Route::get('/information', function () {
+    return view('information');
+})->name('information');
+
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/filter-items/{categoryId}', [HomeController::class, 'filterItems']);
 Route::get('/things-to-do', [HomeController::class, 'thingsToDo'])->name('things.to.do');
 Route::get('/happenings', [HomeController::class, 'happenings'])->name('happenings');
-//add route for information here
+
+
+use App\Http\Controllers\ExploreController;
+
+//Map routes
+Route::get('/explore-sri-lanka', [ExploreController::class, 'index'])->name('explore.sri.lanka');
+
+// Route for fetching top items based on district ID
+Route::get('/district-items/{district}', [ExploreController::class, 'getDistrictItems'])->name('district.items');
+
+Route::get('/explore-sri-lanka/items/{district}', [ExploreController::class, 'getItemsByDistrict']);
+Route::get('/explore-sri-lanka', [ExploreController::class, 'exploreSriLanka']);
+Route::get('/explore-sri-lanka', [ExploreController::class, 'exploreSriLanka'])->name('explore.sri.lanka');
+
 
 
 
@@ -171,4 +189,16 @@ use App\Http\Controllers\ReviewController;
 
 Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+// Route to filter items based on category
+Route::get('/filter-items/{categoryId}', [ItemController::class, 'filterItems'])->name('filter.items');
+
+// Route to filter events based on category
+Route::get('/filter-events/{categoryId}', [EventController::class, 'filterEvents'])->name('filter.events');
+
+// Route to handle filter and pagination for items (attractions)
+Route::get('/filter-items-paginated', [ItemController::class, 'filterItemsPaginated'])->name('filter.items.paginated');
+
+//Route to handle filtering in happenings
+Route::get('/filter-happenings-paginated', [EventController::class, 'filterHappeningsPaginated'])->name('filter.happenings.paginated');
 

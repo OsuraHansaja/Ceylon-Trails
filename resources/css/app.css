@@ -25,3 +25,30 @@ button {
 form {
     border-radius: 32px;
 }
+
+.map-container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.item-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.item-card img {
+    width: 100%;
+    height: auto;
+}
+
+.map-container path {
+    fill: none;
+    stroke: #000; /* Set stroke color */
+    stroke-width: 1px; /* Define border width */
+    cursor: pointer; /* Indicate clickable area */
+}
+
+.map-container path:hover {
+    fill: #f0f0f0; /* Highlight fill when hovered */
+}
