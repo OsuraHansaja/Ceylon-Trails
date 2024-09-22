@@ -10,7 +10,6 @@
         </div>
     </section>
 
-
     <!-- Categories Filter Section -->
     <section class="p-6">
         <div class="bg-white p-6 rounded-lg shadow-md">
@@ -33,7 +32,7 @@
             </div>
 
             <!-- Items Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="items-grid">
                 @foreach ($items as $item)
                     <div class="bg-white p-4 rounded-lg shadow-md">
                         @if ($item->thumbnail_image)
@@ -49,10 +48,75 @@
 
             <!-- View More Button -->
             <div class="mt-6 text-center">
-                <button class="bg-black text-white font-bold py-2 px-4 rounded">
+                <button id="view-more-btn" class="bg-black text-white font-bold py-2 px-4 rounded">
                     View More
                 </button>
             </div>
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        let offset = 8;  // Default offset to load more items
+        let selectedCategory = 'all';  // Default selected category
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryButtons = document.querySelectorAll('.category-button');
+            const viewMoreBtn = document.getElementById('view-more-btn');
+
+            // Handle Category Filtering
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Update button appearance
+                    categoryButtons.forEach(btn => {
+                        btn.classList.remove('selected');
+                        btn.style.backgroundColor = '';
+                        btn.style.color = '#333';
+                    });
+
+                    this.classList.add('selected');
+                    this.style.backgroundColor = '#333';
+                    this.style.color = '#fff';
+
+                    selectedCategory = this.getAttribute('data-category-id');
+                    offset = 0;  // Reset the offset when changing the category
+                    loadItems(selectedCategory, offset, true);  // Load new filtered items
+                });
+            });
+
+            // Handle "View More" button click
+            viewMoreBtn.addEventListener('click', function () {
+                loadItems(selectedCategory, offset);  // Load more items of the selected category
+            });
+
+            // Function to Load Items
+            function loadItems(categoryId, offset, reset = false) {
+                fetch(`/filter-items-paginated?category_id=${categoryId}&offset=${offset}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const grid = document.getElementById('items-grid');
+
+                        if (reset) {
+                            grid.innerHTML = '';  // Clear existing items when filtering by a new category
+                        }
+
+                        data.forEach(item => {
+                            grid.innerHTML += `
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <img src="/${item.thumbnail_image}" alt="${item.title}" class="w-full h-32 object-cover mb-4 rounded">
+                                <h3 class="text-lg font-bold mb-2">${item.title}</h3>
+                                <p class="text-gray-700 text-sm mb-2">${item.small_description}</p>
+                                <p class="text-sm text-gray-500 mb-2">Location: ${item.location}</p>
+                                <p class="text-sm text-gray-500 mb-2">Category: ${item.categories.map(category => category.name).join(', ')}</p>
+                            </div>
+                        `;
+                        });
+
+                        offset += 8;  // Increment the offset for the next "View More" action
+                    })
+                    .catch(error => console.error('Error fetching items:', error));
+            }
+        });
+    </script>
+@endpush

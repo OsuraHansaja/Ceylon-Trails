@@ -42,4 +42,6 @@ class Event extends Model
     {
         return $this->belongsToMany(Category::class, 'category_event');
     }
+
+
 }

@@ -10,35 +10,33 @@
         </div>
     </section>
 
-    <!-- Month Filter Section -->
+    <!-- Year and Month Filter Section -->
     <section class="p-6">
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <!-- Month and Year Selection -->
+            <!-- Year and Month Selection -->
             <div class="flex justify-center items-center mb-4">
-                <button class="px-3 py-1 bg-gray-200 text-gray-600 font-semibold rounded-l-lg">
+                <button id="prev-year-btn" class="px-3 py-1 bg-gray-200 text-gray-600 font-semibold rounded-l-lg">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <span class="px-6 py-2 bg-white text-gray-700 font-semibold">2024</span>
-                <button class="px-3 py-1 bg-gray-200 text-gray-600 font-semibold rounded-r-lg">
+                <span id="selected-year" class="px-6 py-2 bg-white text-gray-700 font-semibold">2024</span>
+                <button id="next-year-btn" class="px-3 py-1 bg-gray-200 text-gray-600 font-semibold rounded-r-lg">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
 
-            <div class="flex justify-center gap-2 mb-6">
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Jan</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Feb</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Mar</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Apr</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer selected bg-black text-white">
-                    May
-                </button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Jun</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Jul</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Aug</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Sep</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Oct</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Nov</button>
-                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer">Dec</button>
+            <div class="flex justify-center gap-2 mb-6" id="month-buttons">
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="1">Jan</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="2">Feb</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="3">Mar</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="4">Apr</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer selected" data-month="5">May</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="6">Jun</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="7">Jul</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="8">Aug</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="9">Sep</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="10">Oct</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="11">Nov</button>
+                <button class="month-button px-4 py-2 text-sm font-semibold border rounded-full cursor-pointer" data-month="12">Dec</button>
             </div>
         </div>
     </section>
@@ -65,7 +63,7 @@
             </div>
 
             <!-- Events Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="events-grid">
                 @foreach ($events as $event)
                     <div class="bg-white p-4 rounded-lg shadow-md">
                         @if ($event->thumbnail_image)
@@ -81,10 +79,107 @@
 
             <!-- View More Button -->
             <div class="mt-6 text-center">
-                <button class="bg-black text-white font-bold py-2 px-4 rounded">
+                <button id="view-more-btn" class="bg-black text-white font-bold py-2 px-4 rounded">
                     View More
                 </button>
             </div>
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        let offset = 8;
+        let selectedCategory = 'all';
+        let selectedYear = 2024;
+        let selectedMonth = 1;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryButtons = document.querySelectorAll('.category-button');
+            const monthButtons = document.querySelectorAll('.month-button');
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            const yearSpan = document.getElementById('selected-year');
+            const prevYearBtn = document.getElementById('prev-year-btn');
+            const nextYearBtn = document.getElementById('next-year-btn');
+
+            // Handle Category Filtering
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    categoryButtons.forEach(btn => {
+                        btn.classList.remove('selected');
+                        btn.style.backgroundColor = '';
+                        btn.style.color = '#333';
+                    });
+
+                    this.classList.add('selected');
+                    this.style.backgroundColor = '#333';
+                    this.style.color = '#fff';
+
+                    selectedCategory = this.getAttribute('data-category-id');
+                    offset = 0; // Reset offset
+                    loadEvents(selectedCategory, selectedYear, selectedMonth, offset, true);
+                });
+            });
+
+            // Handle Month Selection
+            monthButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    monthButtons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedMonth = this.getAttribute('data-month');
+                    offset = 0; // Reset offset
+                    loadEvents(selectedCategory, selectedYear, selectedMonth, offset, true);
+                });
+            });
+
+            // Handle Year Selection
+            prevYearBtn.addEventListener('click', function () {
+                selectedYear--;
+                yearSpan.textContent = selectedYear;
+                offset = 0;
+                loadEvents(selectedCategory, selectedYear, selectedMonth, offset, true);
+            });
+
+            nextYearBtn.addEventListener('click', function () {
+                selectedYear++;
+                yearSpan.textContent = selectedYear;
+                offset = 0;
+                loadEvents(selectedCategory, selectedYear, selectedMonth, offset, true);
+            });
+
+            // Handle "View More" button click
+            viewMoreBtn.addEventListener('click', function () {
+                loadEvents(selectedCategory, selectedYear, selectedMonth, offset);
+            });
+
+            // Function to Load Events
+            function loadEvents(categoryId, year, month, offset, reset = false) {
+                fetch(`/filter-happenings-paginated?category_id=${categoryId}&year=${year}&month=${month}&offset=${offset}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const grid = document.getElementById('events-grid');
+
+                        if (reset) {
+                            grid.innerHTML = '';  // Clear existing events when filtering
+                        }
+
+                        data.forEach(event => {
+                            grid.innerHTML += `
+                                <div class="bg-white p-4 rounded-lg shadow-md">
+                                    <img src="/${event.thumbnail_image}" alt="${event.title}" class="w-full h-32 object-cover mb-4 rounded">
+                                    <h3 class="text-lg font-bold mb-2">${event.title}</h3>
+                                    <p class="text-gray-700 text-sm mb-2">${event.small_description}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Location: ${event.location}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Category: ${event.categories.map(category => category.name).join(', ')}</p>
+                                </div>
+                            `;
+                        });
+
+                        offset += 8;  // Increment the offset for "View More"
+                    })
+                    .catch(error => console.error('Error fetching events:', error));
+            }
+
+        });
+    </script>
+@endpush
