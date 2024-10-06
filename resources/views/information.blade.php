@@ -29,7 +29,7 @@
                     </div>
                     <div class="tip-content">
                         <h2>Weather & Timezone</h2>
-                        <p>Sri Lanka has a tropical climate with two main monsoon seasons. The southwest monsoon brings rain to the southern and western regions from May to September, while the northeast monsoon affects the northern and eastern regions from December to February. The country follows Sri Lanka Standard Time (GMT +5:30), so adjust your watches accordingly.</p>
+                        <p>Sri Lanka has a tropical climates with two main monsoon seasons. The southwest monsoon brings rain to the southern and western regions from May to September, while the northeast monsoon affects the northern and eastern regions from December to February. The country follows Sri Lanka Standard Time (GMT +5:30), so adjust your watches accordingly.</p>
                     </div>
                 </div>
 
