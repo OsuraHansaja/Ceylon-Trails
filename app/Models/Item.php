@@ -21,6 +21,11 @@ class Item extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function host()
+    {
+        return $this->belongsTo(Host::class, 'host_id');
+    }
+
 
 
 }

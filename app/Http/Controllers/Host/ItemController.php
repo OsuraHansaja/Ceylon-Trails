@@ -191,7 +191,7 @@ class ItemController extends Controller
 
     public function showDetails($id)
     {
-        $item = Item::with('categories')->findOrFail($id); // Fetch the item with its categories
+        $item = Item::with('categories', 'host')->findOrFail($id); // Fetch the item with its categories
         return view('item.details', compact('item')); // Pass the item to the view
     }
 

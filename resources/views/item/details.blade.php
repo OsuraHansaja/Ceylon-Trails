@@ -62,6 +62,16 @@
                 </p>
             @endif
 
+            <!-- Host Information -->
+            <div class="mb-6 flex items-center space-x-4">
+                <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-300">
+                    <img src="{{ $item->host->profile_picture ? asset('storage/' . $item->host->profile_picture) : asset('images/placeholder_profile_pic.jpg') }}" alt="Host Profile Picture" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold">{{ $item->host->username }}</h3>
+                </div>
+            </div>
+
             <!-- Large Description -->
             <div class="mb-6">
                 <h2 class="text-xl font-bold mb-2">Description</h2>
