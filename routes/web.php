@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CategoryController;
 
 
 // Home Route
@@ -45,6 +46,9 @@ use App\Http\Controllers\ProfileController;
 //Routes for profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
 });
 
 
@@ -177,7 +181,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-use App\Http\Controllers\CategoryController;
 
 //tourist cattegory selection
 Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
@@ -201,4 +204,10 @@ Route::get('/filter-items-paginated', [ItemController::class, 'filterItemsPagina
 
 //Route to handle filtering in happenings
 Route::get('/filter-happenings-paginated', [EventController::class, 'filterHappeningsPaginated'])->name('filter.happenings.paginated');
+
+
+// save items
+Route::post('/item/save/{id}', [ItemController::class, 'saveItem'])->name('item.save')->middleware('auth');
+// remove item
+Route::delete('/items/{item}/remove', [ItemController::class, 'removeItem'])->name('items.remove');
 

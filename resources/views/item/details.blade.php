@@ -3,9 +3,34 @@
 @section('content')
     <section class="p-6">
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <!-- Title and Average Rating -->
+            <!-- Title and Save/Remove Button -->
             <div class="flex justify-between items-center mb-4">
-                <h1 class="text-3xl font-bold">{{ $item->title }}</h1>
+                <div class="flex items-center">
+                    <h1 class="text-3xl font-bold">{{ $item->title }}</h1>
+
+                    <!-- Save/Remove Button -->
+                    @auth
+                        @if(auth()->user()->savedItems->contains($item->id))
+                            <!-- If item is already saved, show Remove Item button -->
+                            <form action="{{ route('items.remove', $item->id) }}" method="POST" class="ml-4">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded">
+                                    Remove Item
+                                </button>
+                            </form>
+                        @else
+                            <!-- If item is not saved, show Save Item button -->
+                            <form action="{{ route('item.save', $item->id) }}" method="POST" class="ml-4">
+                                @csrf
+                                <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded">
+                                    Save Item
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
+                </div>
+
                 <p>
                     Average Rating:
                     @if ($item->reviews->count())
@@ -131,7 +156,6 @@
                     <p>No reviews yet. Be the first to review!</p>
                 @endforelse
             </section>
-
         </div>
     </section>
 @endsection
