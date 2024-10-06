@@ -65,17 +65,20 @@
             <!-- Events Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="events-grid">
                 @foreach ($events as $event)
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        @if ($event->thumbnail_image)
-                            <img src="{{ asset($event->thumbnail_image) }}" alt="{{ $event->title }}" class="w-full h-32 object-cover mb-4 rounded">
-                        @endif
-                        <h3 class="text-lg font-bold mb-2">{{ $event->title }}</h3>
-                        <p class="text-gray-700 text-sm mb-2">{{ Str::limit($event->small_description, 100) }}</p>
-                        <p class="text-sm text-gray-500 mb-2">Location: {{ $event->location }}</p>
-                        <p class="text-sm text-gray-500 mb-2">Category: {{ $event->categories->pluck('name')->join(', ') }}</p>
-                    </div>
+                    <a href="{{ route('event.details', $event->id) }}" class="block transform transition-transform hover:scale-105 hover:shadow-lg">
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            @if ($event->thumbnail_image)
+                                <img src="{{ asset($event->thumbnail_image) }}" alt="{{ $event->title }}" class="w-full h-32 object-cover mb-4 rounded">
+                            @endif
+                            <h3 class="text-lg font-bold mb-2">{{ $event->title }}</h3>
+                            <p class="text-gray-700 text-sm mb-2">{{ Str::limit($event->small_description, 100) }}</p>
+                            <p class="text-sm text-gray-500 mb-2">Location: {{ $event->location }}</p>
+                            <p class="text-sm text-gray-500 mb-2">Category: {{ $event->categories->pluck('name')->join(', ') }}</p>
+                        </div>
+                    </a>
                 @endforeach
             </div>
+
 
             <!-- View More Button -->
             <div class="mt-6 text-center">
