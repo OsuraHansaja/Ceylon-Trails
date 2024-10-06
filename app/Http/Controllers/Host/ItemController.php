@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Host;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Category;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\DB;
@@ -193,6 +194,62 @@ class ItemController extends Controller
         $item = Item::with('categories')->findOrFail($id); // Fetch the item with its categories
         return view('item.details', compact('item')); // Pass the item to the view
     }
+
+    public function filterItems($categoryId)
+    {
+        if ($categoryId === 'all') {
+            $items = Item::with('categories')->take(4)->get();
+        } else {
+            $items = Item::whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('categories.id', $categoryId);
+            })->with('categories')->take(4)->get();
+        }
+
+        return response()->json($items);
+    }
+
+    public function filterItemsPaginated(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $offset = $request->offset ?? 0;
+
+        if ($categoryId === 'all') {
+            // Load all items paginated by 8
+            $items = Item::with('categories')->skip($offset)->take(8)->get();
+        } else {
+            // Load items by category paginated by 8
+            $items = Item::whereHas('categories', function($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })->skip($offset)->take(8)->with('categories')->get();
+        }
+
+        return response()->json($items);
+    }
+
+    public function saveItem($id)
+    {
+        $user = auth()->user();
+
+        // Check if the item is already saved
+        if ($user->savedItems()->where('item_id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Item already saved.');
+        }
+
+        // Save the item
+        $user->savedItems()->attach($id);
+
+        return redirect()->back()->with('success', 'Item saved successfully.');
+    }
+
+
+    public function removeItem(Item $item)
+    {
+        $user = auth()->user();
+        $user->savedItems()->detach($item->id); // Remove the item from the saved items
+
+        return redirect()->back()->with('success', 'Item removed successfully.');
+    }
+
 
 
 

@@ -178,4 +178,45 @@ class EventController extends Controller
         return view('event.details', compact('event'));
     }
 
+    public function filterEvents($categoryId)
+    {
+        if ($categoryId === 'all') {
+            $events = Event::with('categories')->take(4)->get();
+        } else {
+            $events = Event::whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('categories.id', $categoryId);
+            })->with('categories')->take(4)->get();
+        }
+
+        return response()->json($events);
+    }
+
+
+    public function filterHappeningsPaginated(Request $request)
+    {
+        $categoryId = $request->get('category_id');
+        $year = $request->get('year');
+        $month = $request->get('month');
+        $offset = $request->get('offset', 0);
+
+        $query = Event::whereYear('start_date', $year)->whereMonth('start_date', $month);
+
+        // Check if the category is not 'all' and add the category filtering
+        if ($categoryId !== 'all') {
+            $query->whereHas('categories', function($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
+            });
+        }
+
+        // Load events with pagination and category filtering
+        $events = $query->with('categories')->skip($offset)->take(8)->get();
+
+        return response()->json($events);
+    }
+
+
+
+
+
+
 }

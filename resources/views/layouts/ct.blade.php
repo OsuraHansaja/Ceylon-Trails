@@ -14,6 +14,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
+
 
     <!-- Styles -->
     @livewireStyles
@@ -30,7 +32,7 @@
         </a>
     </div>
     <div class="menu">
-        <a href="#">Explore Sri Lanka</a>
+        <a href="{{ route('explore.sri.lanka') }}">Explore Sri Lanka</a>
         <a href="{{ route('things.to.do') }}">Things To Do</a>
         <a href="{{ route('happenings') }}">Events & Happenings</a>
         <a href="#">Travel Ideas</a>
@@ -98,6 +100,6 @@
         <p><a href="{{ route('site-issues')}}">Report Site Issues</a></p>
     </div>
 </div>
-
+@stack('scripts')
 </body>
 </html>
