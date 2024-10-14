@@ -55,7 +55,7 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 ![Things to Do Page](public/images/readme/Things%20to%20do%20page.png)
 
 ### Events & Happenings Page
-![Events Page](public/images/readme/Events%20page.png)
+![Events Page](public/images/readme/EventsPage.png)
 
 ### Profile Page
 ![Profile Page](public/images/readme/User%20profile.png)
