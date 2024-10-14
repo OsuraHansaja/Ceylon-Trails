@@ -45,7 +45,7 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 ## Screenshots
 
 ### Homepage
-![Homepage](public/images/Home%20Page.png)
+![Homepage](public/images/readme/Home%20Page.png)
 ![Homepage - Part 2](public/images/Home%20Page%20p2.png)
 
 ### Explore Page
