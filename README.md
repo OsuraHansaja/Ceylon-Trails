@@ -45,32 +45,32 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 ## Screenshots
 
 ### Homepage
-![Homepage](public/images/readme/Home%Page.png)
-![Homepage - Part 2](public/images/readme/Home%20Page%20p2.png)
+![Homepage](public/images/readme/HomePage.png)
+![Homepage - Part 2](public/images/readme/HomePageP2.png)
 
 ### Explore Page
-![Interactive Map Page](public/images/readme/Explore%20Page.png)
+![Interactive Map Page](public/images/readme/ExplorePage.png)
 
 ### Things to Do Page
-![Things to Do Page](public/images/readme/Things%20to%20do%20page.png)
+![Things to Do Page](public/images/readme/ThingsToDoPage.png)
 
 ### Events & Happenings Page
 ![Events Page](public/Images/readme/EventsPage.png)
 
 ### Profile Page
-![Profile Page](public/images/readme/User%20profile.png)
+![Profile Page](public/images/readme/UserProfile.png)
 
 ### Attraction Details Page
-![Item Page](public/images/readme/attractopm%20details%20page.png)
+![Item Page](public/images/readme/AttractionDetailsPage.png)
 
 ### Travel Info Page
-![Travel Info Page](public/images/readme/travel%20info%20page.png)
+![Travel Info Page](public/images/readme/TravelInfoPage.png)
 
 ### Host Dashboard
-![Host Dashboard](public/images/readme/host%20dashboard.png)
+![Host Dashboard](public/images/readme/HostDashboard.png)
 
 ### Host Dashboard Items
-![Host Dashboard](public/images/readme/host%20dashboard%20items.png)
+![Host Dashboard](public/images/readme/HostDashboardItems.png)
 
 
 ---
