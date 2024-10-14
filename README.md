@@ -8,13 +8,26 @@
 
 ## Features
 
-- **Fan Management**: Keep track of fans, their interests, and engagement.
-- **News and Updates**: Post and share the latest news and content with fans.
-- **Team Pages**: Showcase information about your esports teams.
-- **Forums and Discussions**: Engage with fans through interactive forums.
-- **Merchandise Shop**: Sell and manage esports merchandise.
-- **Shopping Cart**: Buy and save esports merchandise into personal carts.
-- **Sponsor Management**: Highlight team sponsors and their contributions.
+### 1. **Custom Interactive Map of Sri Lanka**
+One of the standout features of **Ceylon Trails** is the **custom-built interactive map**. Manually crafted to showcase each district in Sri Lanka, this map allows users to:
+- **Hover** over districts to highlight them.
+- **Click** on districts to view the top attractions, events, and places to visit in that region.
+- **Filter results** dynamically based on the district selected, providing real-time updates of content.
+  
+The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling smooth interaction and responsiveness across devices. This manual implementation ensures a lightweight and fast experience for users exploring Sri Lanka.
+
+### 2. **Tourist and Host Registration**
+- **Tourist users** can register, save favorite places, and create personalized itineraries.
+- **Host users** have a separate registration process, allowing them to list attractions, events, and more, which can be managed via a custom-built host dashboard.
+
+### 3. **Explore Page**
+- An easy-to-navigate page showcasing the best attractions, categorized by things to do, places to visit, and upcoming events.
+- The explore page integrates seamlessly with the interactive map, giving users a visual and hands-on way to discover the island.
+
+### 4. **Dynamic Content**
+- Both tourists and hosts can view content that is dynamically loaded based on their preferences and interactions with the platform.
+- Filtering by category, region, or attraction type is possible without refreshing the page.
+
 
 ---
 
