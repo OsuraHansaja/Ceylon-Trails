@@ -33,7 +33,7 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 
 ## Tech Stack
 
-- **Backend**: [Laravel 11](https://laravel.com/) https://ceylon-trails.lol/
+- **Backend**: [Laravel 11](https://laravel.com/)
 - **Frontend**: Blade, Tailwind CSS, Alpine.js
 - **Database**: MySQL
 - **Tools**: Jetstream, Livewire, Laravel Forge
@@ -45,30 +45,33 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 ## Screenshots
 
 ### Homepage
-![Homepage](public/images/readme%20screenshots/Home%20Page.png)
-![Homepage - Part 2](public/images/readme%20screenshots/Home%20Page%20p2.png)
+![Homepage](public/images/readme/Home%20Page.png)
+![Homepage - Part 2](public/images/readme/Home%20Page%20p2.png)
 
-### Shop Section
-![Shop Page](public/images/readme%20screenshots/Shop%20Page.png)
-![Shop Item Page](public/images/readme%20screenshots/Shop%20Item%20Page.png)
-![Shop Cart Page](public/images/readme%20screenshots/Shop%20Cart%20Page.png)
+### Explore Page
+![Interactive Map Page](public/images/readme/Explore%20Page.png)
 
-### Team Pages
-![Team Page](public/images/readme%20screenshots/Team%20Page.png)
+### Things to Do Page
+![Things to Do Page](public/images/readme/Things%20to%20do%20page.png)
 
-### News Section
-![News Page](public/images/readme%20screenshots/News%20Page.png)
+### Events & Happenings Page
+![Events Page](public/images/readme/Events%20page.png)
 
-### Admin Dashboard
-![Admin Dashboard](public/images/readme%20screenshots/admin%20dashboard.png)
-![Admin Dashboard - Part 2](public/images/readme%20screenshots/admin%20dashboard%20p2.png)
+### Profile Page
+![Profile Page](public/images/readme/User%20profile.png)
 
-### Admin Shop Management
-![Admin Shop](public/images/readme%20screenshots/admin%20shop.png)
+### Attraction Details Page
+![Item Page](public/images/readme/attractopm%20details%20page.png)
 
-### Admin News Management
-![Admin News](public/images/readme%20screenshots/admin%20news.png)
-![Admin News Creation](public/images/readme%20screenshots/admin%20news%20create.png)
+### Travel Info Page
+![Travel Info Page](public/images/readme/travel%20info%20page.png)
+
+### Host Dashboard
+![Host Dashboard](public/images/readme/host%20dashboard.png)
+
+### Host Dashboard Items
+![Host Dashboard](public/images/readme/host%20dashboard%20items.png)
+
 
 ---
 
