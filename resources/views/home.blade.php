@@ -23,6 +23,14 @@
                             style="border-color: #333; color: #fff; background-color: #333;">
                         All
                     </button>
+                    @auth
+                        <button type="button"
+                                class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
+                                data-category-id="recommended"
+                                style="border-color: #333; color: #333;">
+                            Recommended
+                        </button>
+                    @endauth
                     @foreach ($categories as $category)
                         <button type="button"
                                 class="category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
@@ -37,7 +45,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="attractions-grid">
                 @foreach ($items as $item)
                     <a href="{{ route('item.details', $item->id) }}" class="block">
-                        <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 hover:shadow-lg">
                             @if ($item->thumbnail_image)
                                 <img src="{{ asset($item->thumbnail_image) }}" alt="{{ $item->title }}" class="w-full h-32 object-cover mb-4 rounded">
                             @endif
@@ -49,6 +57,7 @@
                     </a>
                 @endforeach
             </div>
+
             <!-- View More Button -->
             <div class="mt-6 text-center">
                 <a href="{{ route('things.to.do') }}">
@@ -74,6 +83,14 @@
                             style="border-color: #333; color: #fff; background-color: #333;">
                         All
                     </button>
+                    @auth
+                        <button type="button"
+                                class="event-category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
+                                data-category-id="recommended"
+                                style="border-color: #333; color: #333;">
+                            Recommended
+                        </button>
+                    @endauth
                     @foreach ($categories as $category)
                         <button type="button"
                                 class="event-category-button inline-block px-3 py-1 text-sm font-semibold border rounded-full cursor-pointer"
@@ -87,8 +104,8 @@
             <!-- Events Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="events-grid">
                 @foreach ($events as $event)
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <a href="{{ route('event.details', $event->id) }}">
+                    <a href="{{ route('event.details', $event->id) }}" class="block">
+                        <div class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 hover:shadow-lg">
                             @if ($event->thumbnail_image)
                                 <img src="{{ asset($event->thumbnail_image) }}" alt="{{ $event->title }}" class="w-full h-32 object-cover mb-4 rounded">
                             @endif
@@ -96,11 +113,11 @@
                             <p class="text-gray-700 text-sm mb-2">{{ Str::limit($event->small_description, 100) }}</p>
                             <p class="text-sm text-gray-500 mb-2">Location: {{ $event->location }}</p>
                             <p class="text-sm text-gray-500 mb-2">Category: {{ $event->categories->pluck('name')->join(', ') }}</p>
-                        </a>
-                    </div>
-
+                        </div>
+                    </a>
                 @endforeach
             </div>
+
             <!-- View More Button -->
             <div class="mt-6 text-center">
                 <a href="{{ route('happenings') }}">
@@ -112,7 +129,6 @@
         </div>
     </section>
 @endsection
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -138,7 +154,12 @@
         });
 
         function filterItems(categoryId) {
-            fetch(`/filter-items/${categoryId}`)
+            let url = `/filter-items/${categoryId}`;
+            if (categoryId === 'recommended') {
+                url = '/filter-items/recommended';
+            }
+
+            fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const grid = document.getElementById('attractions-grid');
@@ -180,7 +201,12 @@
         });
 
         function filterEvents(categoryId) {
-            fetch(`/filter-events/${categoryId}`)
+            let url = `/filter-events/${categoryId}`;
+            if (categoryId === 'recommended') {
+                url = '/filter-events/recommended';
+            }
+
+            fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const grid = document.getElementById('events-grid');
@@ -203,5 +229,4 @@
                 .catch(error => console.error('Error fetching events:', error));
         }
     });
-
 </script>

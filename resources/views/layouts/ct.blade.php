@@ -14,6 +14,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
+
 
     <!-- Styles -->
     @livewireStyles
@@ -75,10 +77,10 @@
     <div class="related-sites">
         <p>Related Sites</p>
         <ul>
-            <li><a href="#">Sri Lanka Tourism Development Authority</a></li>
-            <li><a href="#">Ministry of Tourism</a></li>
-            <li><a href="#">SriLankan Airlines</a></li>
-            <li><a href="#">Department of Immigration and Emigration</a></li>
+            <li><a href="https://www.sltda.gov.lk/en" target="_blank">Sri Lanka Tourism Development Authority</a></li>
+            <li><a href="https://landmin.gov.lk/web/en/home/" target="_blank">Ministry of Tourism</a></li>
+            <li><a href="https://www.srilankan.com/en_uk/lk" target="_blank">SriLankan Airlines</a></li>
+            <li><a href="https://www.immigration.gov.lk/index_e.php" target="_blank">Department of Immigration and Emigration</a></li>
         </ul>
     </div>
     <div class="connect">
@@ -86,16 +88,16 @@
         <ul>
             <li><a href="#"><img src="{{ asset('images/youtube-icon.png') }}" alt="YouTube"></a></li>
             <li><a href="#"><img src="{{ asset('images/facebook-icon.png') }}" alt="Facebook"></a></li>
-            <li><a href="#"><img src="{{ asset('images/twitter-icon.png') }}" alt="Twitter"></a></li>
+            <li><a href="https://x.com/MFA_SriLanka" target="_blank"><img src="{{ asset('images/twitter-icon.png') }}" alt="Twitter"></a></li>
             <li><a href="#"><img src="{{ asset('images/instagram-icon.png') }}" alt="Instagram"></a></li>
             <li><a href="#"><img src="{{ asset('images/pinterest-icon.png') }}" alt="Pinterest"></a></li>
         </ul>
     </div>
     <div class="legal">
-        <p><a href="#">Terms of Use</a></p>
-        <p><a href="#">Privacy</a></p>
-        <p><a href="#">Cookie Policy</a></p>
-        <p><a href="#">Report Site Issues</a></p>
+        <p><a href="{{ route('terms') }}">Terms of Use</a></p>
+        <p><a href="{{ route('policy') }}">Privacy</a></p>
+        <p><a href="{{ route('cookie') }}">Cookie Policy</a></p>
+        <p><a href="{{ route('site-issues')}}">Report Site Issues</a></p>
     </div>
 </div>
 @stack('scripts')

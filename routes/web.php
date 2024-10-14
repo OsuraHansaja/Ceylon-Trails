@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CategoryController;
 
 
 // Home Route
@@ -17,6 +18,27 @@ Route::get('/', function () {
 Route::get('/information', function () {
     return view('information');
 })->name('information');
+
+//route for terms page
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+//route for policy page
+Route::get('/policy', function () {
+    return view('policy');
+})->name('policy');
+
+//route for cookie page
+Route::get('/cookie', function () {
+    return view('cookie');
+})->name('cookie');
+
+//route for site-issues page
+Route::get('/site-issues', function () {
+    return view('site-issues');
+})->name('site-issues');
+
 
 use App\Http\Controllers\HomeController;
 
@@ -45,6 +67,9 @@ use App\Http\Controllers\ProfileController;
 //Routes for profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
 });
 
 
@@ -177,7 +202,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-use App\Http\Controllers\CategoryController;
 
 //tourist cattegory selection
 Route::get('/select-categories', [CategoryController::class, 'showCategorySelection'])->name('select.categories');
@@ -190,6 +214,13 @@ use App\Http\Controllers\ReviewController;
 Route::post('/item/{item}/review', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/item/{item}/review/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
+
+//report issues
+use App\Http\Controllers\IssueController;
+
+Route::post('/report-site-issues', [IssueController::class, 'submit'])->name('report.issue.submit');
+
+
 // Route to filter items based on category
 Route::get('/filter-items/{categoryId}', [ItemController::class, 'filterItems'])->name('filter.items');
 
@@ -201,4 +232,11 @@ Route::get('/filter-items-paginated', [ItemController::class, 'filterItemsPagina
 
 //Route to handle filtering in happenings
 Route::get('/filter-happenings-paginated', [EventController::class, 'filterHappeningsPaginated'])->name('filter.happenings.paginated');
+
+
+// save items
+Route::post('/item/save/{id}', [ItemController::class, 'saveItem'])->name('item.save')->middleware('auth');
+// remove item
+Route::delete('/items/{item}/remove', [ItemController::class, 'removeItem'])->name('items.remove');
+
 

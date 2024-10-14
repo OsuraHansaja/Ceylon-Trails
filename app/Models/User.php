@@ -83,6 +83,13 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    // In User.php model
+    public function savedItems()
+    {
+        return $this->belongsToMany(Item::class, 'saved_items', 'user_id', 'item_id');
+    }
+
+
 
 
 }

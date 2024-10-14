@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Host;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Category;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\DB;
@@ -190,7 +191,7 @@ class ItemController extends Controller
 
     public function showDetails($id)
     {
-        $item = Item::with('categories')->findOrFail($id); // Fetch the item with its categories
+        $item = Item::with('categories', 'host')->findOrFail($id); // Fetch the item with its categories
         return view('item.details', compact('item')); // Pass the item to the view
     }
 
@@ -223,6 +224,30 @@ class ItemController extends Controller
         }
 
         return response()->json($items);
+    }
+
+    public function saveItem($id)
+    {
+        $user = auth()->user();
+
+        // Check if the item is already saved
+        if ($user->savedItems()->where('item_id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Item already saved.');
+        }
+
+        // Save the item
+        $user->savedItems()->attach($id);
+
+        return redirect()->back()->with('success', 'Item saved successfully.');
+    }
+
+
+    public function removeItem(Item $item)
+    {
+        $user = auth()->user();
+        $user->savedItems()->detach($item->id); // Remove the item from the saved items
+
+        return redirect()->back()->with('success', 'Item removed successfully.');
     }
 
 

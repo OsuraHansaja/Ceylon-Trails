@@ -26,6 +26,13 @@
                         @endforeach
                     </div>
                 </div>
+
+                <!-- Edit Profile Button -->
+                <div class="ml-6">
+                    <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-white-500 text-gray-700 rounded">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -34,7 +41,26 @@
     <section class="p-6">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">Saved Items</h2>
-            <p>Saved items feature coming soon...</p>
+            @if ($savedItems->isEmpty())
+                <p>No saved items yet.</p>
+            @else
+                <!-- Saved Items Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    @foreach ($savedItems as $item)
+                        <a href="{{ route('item.details', $item->id) }}" class="block">
+                            <div class="bg-white p-4 rounded-lg shadow-md transform transition-transform hover:scale-105 hover:shadow-lg">
+                                @if ($item->thumbnail_image)
+                                    <img src="{{ asset($item->thumbnail_image) }}" alt="{{ $item->title }}" class="w-full h-32 object-cover mb-4 rounded">
+                                @endif
+                                <h3 class="text-lg font-bold mb-2">{{ $item->title }}</h3>
+                                <p class="text-gray-700 text-sm mb-2">{{ Str::limit($item->small_description, 100) }}</p>
+                                <p class="text-sm text-gray-500 mb-2">Location: {{ $item->location }}</p>
+                                <p class="text-sm text-gray-500 mb-2">Category: {{ $item->categories->pluck('name')->join(', ') }}</p>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </section>
 @endsection
