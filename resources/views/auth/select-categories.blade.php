@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <div class="w-full max-w-md p-8 bg-white rounded-[32px] shadow-md">
-            <h2 class="text-2xl font-bold text-center text-gray-900">Select Categories</h2>
+            <h2 class="text-2xl font-bold text-center text-gray-900">Select Your Preferences</h2>
             <form method="POST" action="{{ route('categories.store') }}">
                 @csrf
                 <div class="space-y-4">

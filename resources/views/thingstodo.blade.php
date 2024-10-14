@@ -106,13 +106,15 @@
 
                         data.forEach(item => {
                             grid.innerHTML += `
+                            <a href="{{ route('item.details', $item->id) }}" class="block transform transition-transform hover:scale-105 hover:shadow-lg">
                             <div class="bg-white p-4 rounded-lg shadow-md">
                                 <img src="/${item.thumbnail_image}" alt="${item.title}" class="w-full h-32 object-cover mb-4 rounded">
-                                <h3 class="text-lg font-bold mb-2">${item.title}</h3>
-                                <p class="text-gray-700 text-sm mb-2">${item.small_description}</p>
-                                <p class="text-sm text-gray-500 mb-2">Location: ${item.location}</p>
-                                <p class="text-sm text-gray-500 mb-2">Category: ${item.categories.map(category => category.name).join(', ')}</p>
+                                    <h3 class="text-lg font-bold mb-2">${item.title}</h3>
+                                    <p class="text-gray-700 text-sm mb-2">${item.small_description}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Location: ${item.location}</p>
+                                    <p class="text-sm text-gray-500 mb-2">Category: ${item.categories.map(category => category.name).join(', ')}</p>
                             </div>
+                        </a>
                         `;
                         });
 
