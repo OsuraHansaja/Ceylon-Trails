@@ -6,7 +6,7 @@
 
 ---
 
-## Features
+## Key Features
 
 ### 1. **Custom Interactive Map of Sri Lanka**
 One of the standout features of **Ceylon Trails** is the **custom-built interactive map**. Manually crafted to showcase each district in Sri Lanka, this map allows users to:
@@ -33,10 +33,12 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 
 ## Tech Stack
 
-- **Backend**: [Laravel 11](https://laravel.com/)
+- **Backend**: [Laravel 11](https://laravel.com/) https://ceylon-trails.lol/
 - **Frontend**: Blade, Tailwind CSS, Alpine.js
 - **Database**: MySQL
 - **Tools**: Jetstream, Livewire, Laravel Forge
+- **Hosting**: Project was hosted using Laravel Forge, for testing purposes.
+- **Testing**: Cypress, Ghost Inspector
 
 ---
 
