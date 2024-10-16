@@ -1,6 +1,6 @@
 <h1 align="center" style="font-family: 'Orbitron', sans-serif;">Ceylon Trails</h1>
 
-<p align="center">
+<p align="justify">
   Ceylon Trails is a dynamic tourism platform designed to assist travelers in exploring the beautiful island of Sri Lanka. The platform offers a variety of features aimed at enhancing the user experience, from discovering attractions and events to creating custom itineraries and saving favorite places. Built using the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire), Ceylon Trails offers both tourists and hosts an intuitive and engaging interface.
 </p>
 
