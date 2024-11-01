@@ -79,7 +79,7 @@ The map is entirely custom-made using SVG (Scalable Vector Graphics), enabling s
 
 ```bash
 git clone [https://github.com/OsuraHansaja/Ceylon-Trails]
-cd Origin-eSports-CRM
+cd Ceylon-Trails
 composer install
 npm install
 cp .env.example .env
